@@ -5,15 +5,12 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-interface IForm {
-  email: string;
-  password: string;
-}
+import { ISignUpForm } from "@/types/user";
 
 export const Login = () => {
   const { moveSignup } = useNavigate();
 
-  const form = useForm<IForm>({
+  const form = useForm<ISignUpForm>({
     defaultValues: {
       email: "",
       password: "",
@@ -24,7 +21,7 @@ export const Login = () => {
   const password = form.watch("password");
   const allWrite = !email || !password;
 
-  function onSubmit(values: IForm) {
+  function onSubmit(values: ISignUpForm) {
     // 로그인 기능 추가 _ firebase 사용
   }
 
@@ -56,9 +53,11 @@ export const Login = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full" disabled={allWrite}>
-            로그인
-          </Button>
+          <div className="pt-6">
+            <Button type="submit" className="w-full" disabled={allWrite}>
+              로그인
+            </Button>
+          </div>
           <div
             className="text-right cursor-pointer"
             onClick={() => moveSignup()}
