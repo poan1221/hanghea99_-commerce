@@ -1,71 +1,18 @@
-import { useForm } from "react-hook-form";
 import { useNavigate } from "../hook/useNavigate";
-
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-
-import { ISignUpForm } from "@/types/user";
+import { LoginForm } from "../components/ui/form/LoginForm";
+import { useLogin } from "../hook/useUserServices";
 
 export const Login = () => {
   const { moveSignup } = useNavigate();
-
-  const form = useForm<ISignUpForm>({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
-  const email = form.watch("email");
-  const password = form.watch("password");
-  const allWrite = !email || !password;
-
-  function onSubmit(values: ISignUpForm) {
-    // 로그인 기능 추가 _ firebase 사용
-  }
+  const submitLogin = useLogin();
 
   return (
     <section className="max-w-lg section-py mx-auto">
       <h2 className="text-slate-900 font-bold text-[40px] pb-10">LOGIN</h2>
-
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input placeholder="email" {...field} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input type="password" placeholder="password" {...field} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <div className="pt-6">
-            <Button type="submit" className="w-full" disabled={allWrite}>
-              로그인
-            </Button>
-          </div>
-          <div
-            className="text-right cursor-pointer"
-            onClick={() => moveSignup()}
-          >
-            아직 회원이 아니신가요?
-          </div>
-        </form>
-      </Form>
+      <LoginForm login={submitLogin} />
+      <div className="text-right cursor-pointer" onClick={() => moveSignup()}>
+        아직 회원이 아니신가요?
+      </div>
     </section>
   );
 };
