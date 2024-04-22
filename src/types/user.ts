@@ -9,5 +9,5 @@ export interface ISignUpForm {
   nickname: string;
   password: string;
   passwordConfirm: string;
-  employeeCode: string;
+  employeeCode?: string;
 }

@@ -24,13 +24,18 @@ export const useSignUp = () => {
       await setDoc(
         userRef,
         {
-          ...userData,
+          email: userData.email,
+          password: userData.password,
+          nickname: userData.nickname,
+          userType: userData.userType,
+          employeeCode: userData.employeeCode,
           uid: user.uid,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         { merge: true }
       );
+      // 여기부터 왜 안타는지 확인 필요
       console.log(11111);
 
       moveLogin();

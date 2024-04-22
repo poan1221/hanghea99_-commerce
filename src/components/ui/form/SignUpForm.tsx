@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
@@ -13,8 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ISignUpForm } from "@/types/user";
-// import path from "path";
-// import { on } from "events";
+import { signUpInputs, SignFormSchema } from "./form.constant";
 
 interface SignUPFormProps {
   signUp: (data: ISignUpForm) => Promise<void>;
@@ -22,7 +20,7 @@ interface SignUPFormProps {
 
 export const SignUpForm = ({ signUp }: SignUPFormProps) => {
   const form = useForm<ISignUpForm>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(SignFormSchema),
     mode: "onChange",
     defaultValues: {
       userType: "customer",
@@ -34,17 +32,15 @@ export const SignUpForm = ({ signUp }: SignUPFormProps) => {
     },
   });
 
+  const [nickname, email, password, passwordConfirm] = signUpInputs
+    .filter((input) => input.id !== "userType" && input.id !== "employeeCode")
+    .map((input) => form.watch(input.id));
   const userType = form.watch("userType");
-  const email = form.watch("email");
-  const nickname = form.watch("nickname");
-  const password = form.watch("password");
-  const passwordConfirm = form.watch("passwordConfirm");
   const employeeCode = form.watch("employeeCode");
   const allWrite =
     !userType || !email || !nickname || !password || !passwordConfirm;
 
   const onSubmit = form.handleSubmit((data) => {
-    console.log(`버튼 눌렀죠?` + data);
     signUp(data);
   });
 
@@ -75,7 +71,7 @@ export const SignUpForm = ({ signUp }: SignUPFormProps) => {
                         <FormItem className="text-left">
                           <FormControl>
                             <Input
-                              placeholder="employeeCode"
+                              placeholder="employee code"
                               {...form.register("employeeCode", {
                                 setValueAs: (value) => value.trim(),
                               })}
@@ -91,68 +87,30 @@ export const SignUpForm = ({ signUp }: SignUPFormProps) => {
             </FormItem>
           )}
         />
-        <FormField
-          name="nickname"
-          render={() => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  placeholder="name"
-                  {...form.register("nickname", {
-                    setValueAs: (value) => value.trim(),
-                  })}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          name="email"
-          render={() => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  placeholder="email"
-                  {...form.register("email", {
-                    setValueAs: (value) => value.trim(),
-                  })}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          name="password"
-          render={() => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder="password"
-                  {...form.register("password")}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          name="passwordConfirm"
-          render={() => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder="password confirm"
-                  {...form.register("passwordConfirm")}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {signUpInputs
+          .filter(
+            (input) => input.id !== "userType" && input.id !== "employeeCode"
+          )
+          .map((input) => (
+            <FormField
+              key={input.id}
+              name={input.id}
+              render={() => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type={input.type}
+                      placeholder={input.placeholder}
+                      {...form.register(input.id, {
+                        setValueAs: (value) => value.trim(),
+                      })}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ))}
         <div className="pt-6">
           <Button
             type="submit"
@@ -168,43 +126,3 @@ export const SignUpForm = ({ signUp }: SignUPFormProps) => {
     </Form>
   );
 };
-
-const formSchema = z
-  .object({
-    userType: z.enum(["customer", "seller"]),
-    email: z.string().email("! 유효하지 않은 이메일 주소입니다."),
-    nickname: z.string().min(1, "! 이름을 입력해 주세요."),
-    password: z
-      .string()
-      .min(8, { message: "! 비밀번호는 최소 8자 이상이어야 합니다." })
-      .refine(
-        (val) =>
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-            val
-          ) ||
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(val) ||
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z@$!%*?&]{8,}$/.test(
-            val
-          ) ||
-          /^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[a-z\d@$!%*?&]{8,}$/.test(val),
-        {
-          message:
-            "! 비밀번호는 대문자, 소문자, 숫자, 특수문자 중 3종류를 포함해야 합니다.",
-        }
-      ),
-    passwordConfirm: z.string(),
-    employeeCode: z.string().optional(),
-  })
-  .refine((data) => data.password === data.passwordConfirm, {
-    message: "! 비밀번호가 일치하지 않습니다.",
-    path: ["passwordConfirm"],
-  })
-  .refine(
-    (data) =>
-      data.userType === "seller" &&
-      (!data.employeeCode || data.employeeCode.length === 10),
-    {
-      message: "! 직원 코드는 10자리 숫자입니다.",
-      path: ["employeeCode"],
-    }
-  );
