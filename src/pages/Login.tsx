@@ -1,5 +1,5 @@
 import { useNavigate } from "../hook/useNavigate";
-import { LoginForm } from "../components/ui/form/LoginForm";
+import { LoginForm } from "../components/form/LoginForm";
 import { useLogin } from "../hook/useUserServices";
 
 export const Login = () => {

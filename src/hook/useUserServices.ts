@@ -6,6 +6,8 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from "./useNavigate";
+import { useUserStore } from "@/store/useUserStore";
+import { IUserInfo } from "@/types/user";
 
 export const useSignUp = () => {
   const { moveLogin } = useNavigate();
@@ -25,18 +27,13 @@ export const useSignUp = () => {
         userRef,
         {
           email: userData.email,
-          password: userData.password,
           nickname: userData.nickname,
           userType: userData.userType,
           employeeCode: userData.employeeCode,
           uid: user.uid,
-          createdAt: new Date(),
-          updatedAt: new Date(),
         },
         { merge: true }
       );
-      // 여기부터 왜 안타는지 확인 필요
-      console.log(11111);
 
       moveLogin();
     } catch (error) {
@@ -49,16 +46,20 @@ export const useSignUp = () => {
 
 export const useLogin = () => {
   const { moveHome } = useNavigate();
-  // const setUser = useUserStore((state) => state.setUser);
+  const setUser = useUserStore((state) => state.setUser);
 
-  const login = async (data: { email: string; password: string }) => {
-    const { email, password } = data;
-
+  const login = async (userData: ILoginForm) => {
     try {
-      const loginInfo = await signInWithEmailAndPassword(auth, email, password);
+      const loginInfo = await signInWithEmailAndPassword(
+        auth,
+        userData.email,
+        userData.password
+      );
+
       const docRef = doc(db, "user", loginInfo.user.uid);
       const docSnap = await getDoc(docRef);
-      //   setUser(docSnap.data() as UserType);
+
+      setUser(docSnap.data() as IUserInfo);
 
       moveHome();
     } catch (error) {

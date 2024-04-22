@@ -11,3 +11,11 @@ export interface ISignUpForm {
   passwordConfirm: string;
   employeeCode?: string;
 }
+
+export interface IUserInfo {
+  email: string;
+  nickname: string;
+  userType: "customer" | "seller";
+  employeeCode?: string;
+  uid: string;
+}

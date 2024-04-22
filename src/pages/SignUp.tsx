@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/components/ui/form/SignUpForm";
+import { SignUpForm } from "@/components/form/SignUpForm";
 import { useSignUp } from "@/hook/useUserServices";
 
 export const SignUp = () => {
