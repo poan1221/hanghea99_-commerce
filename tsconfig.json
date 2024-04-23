@@ -9,7 +9,7 @@
     /* typescript 모듈 찾기 지정 */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"]
     },
 
     /* Bundler mode */

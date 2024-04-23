@@ -1,14 +1,15 @@
+import { Suspense } from "react";
 import "./App.css";
-import { Layout } from "./layouts/Layout";
+
 import { Router } from "./router/Router";
+import { AuthStateObserver } from "@/hook/useUserServices";
 
 function App() {
   return (
-    <>
-      <Layout>
-        <Router />
-      </Layout>
-    </>
+    <Suspense fallback={<div>Loading...</div>}>
+      <AuthStateObserver />
+      <Router />
+    </Suspense>
   );
 }
 
