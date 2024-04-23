@@ -5,31 +5,37 @@ import { Main, Cart, NotFound, Login, SignUp } from "../pages";
 export const ROUTES: Routes = {
   HOME: {
     PATH: "/",
+    isAuth: false,
     COMPONENT: Main,
   },
 
   LOGIN: {
     PATH: "/Login",
+    isAuth: false,
     COMPONENT: Login,
   },
 
   SIGNUP: {
     PATH: "/SignUp",
+    isAuth: false,
     COMPONENT: SignUp,
   },
 
   LIST: {
     PATH: "/list",
+    isAuth: false,
     COMPONENT: List,
   },
 
   DETAIL: {
     PATH: "/detail/:id",
+    isAuth: false,
     COMPONENT: Detail,
   },
 
   CART: {
     PATH: "/cart",
+    isAuth: true,
     COMPONENT: Cart,
   },
 
@@ -50,8 +56,8 @@ export const ROUTES: Routes = {
   //     COMPONENT: OrderDetail,
   //   },
 
-  NOT_FOUND: {
-    PATH: "*",
-    COMPONENT: NotFound,
-  },
+  // NOT_FOUND: {
+  //   PATH: "*",
+  //   COMPONENT: NotFound,
+  // },
 } as const;
