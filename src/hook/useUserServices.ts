@@ -8,12 +8,12 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from "./useNavigate";
 import { useUserStore } from "@/store/useUserStore";
 import { IUserInfo } from "@/types/user";
+import { useEffect } from "react";
 
 export const useSignUp = () => {
   const { moveLogin } = useNavigate();
 
   const signUp = async (userData: ISignUpForm) => {
-    console.log(`signUp -- useSignUp`, userData);
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -46,7 +46,6 @@ export const useSignUp = () => {
 
 export const useLogin = () => {
   const { moveHome } = useNavigate();
-  const setUser = useUserStore((state) => state.setUser);
 
   const login = async (userData: ILoginForm) => {
     try {
@@ -56,16 +55,42 @@ export const useLogin = () => {
         userData.password
       );
 
-      const docRef = doc(db, "user", loginInfo.user.uid);
-      const docSnap = await getDoc(docRef);
-
-      setUser(docSnap.data() as IUserInfo);
-
       moveHome();
+      return { data: loginInfo };
     } catch (error) {
       console.error(error);
     }
   };
 
   return login;
+};
+
+export const AuthStateObserver = () => {
+  const { setUser } = useUserStore();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // 사용자가 로그인한 상태
+        user
+          .getIdToken()
+          .then(async () => {
+            const docRef = doc(db, "user", user.uid);
+            const docSnap = await getDoc(docRef);
+
+            setUser(docSnap.data() as IUserInfo);
+          })
+          .catch((error) => {
+            console.error("Token renewal error:", error);
+            setUser(null);
+          });
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [setUser]);
+
+  return null;
 };
