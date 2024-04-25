@@ -1,6 +1,7 @@
 import { Routes } from "./router.type";
 import { List, Detail } from "../pages/product";
 import { Main, Cart, NotFound, Login, SignUp } from "../pages";
+import { MyList, AddProduct } from "../pages/admin";
 
 export const ROUTES: Routes = {
   HOME: {
@@ -37,6 +38,18 @@ export const ROUTES: Routes = {
     PATH: "/cart",
     isAuth: true,
     COMPONENT: Cart,
+  },
+
+  MYLIST: {
+    PATH: "/mylist",
+    isAuth: true,
+    COMPONENT: MyList,
+  },
+
+  ADDPRODUCT: {
+    PATH: "/addProduct",
+    isAuth: true,
+    COMPONENT: AddProduct,
   },
 
   // 추가...

@@ -5,7 +5,8 @@ import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 
 export const Header = () => {
-  const { moveHome, moveCart, moveLogin, moveSignup } = useNavigate();
+  const { moveHome, moveCart, moveLogin, moveSignup, moveMyList } =
+    useNavigate();
   const user = useUserStore((state) => state.user);
 
   const handleLogout = async () => {
@@ -45,6 +46,15 @@ export const Header = () => {
                   로그인
                 </button>
               </div>
+            </>
+          )}
+          {user?.userType === "seller" ? (
+            <div className="flex gap-15">
+              <button className="nav-button hover" onClick={() => moveMyList()}>
+                내 상품 조회
+              </button>
+            </div>
+          ) : (
               <div className="flex gap-15">
                 <button className="nav-button hover">위시리스트</button>
                 <button className="nav-button hover" onClick={() => moveCart()}>

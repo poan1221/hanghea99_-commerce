@@ -1,7 +1,13 @@
 export interface Product {
-  id: number;
-  sellerId: number;
-  price: number;
+  id: string;
   name: string;
-  imageUrl: string[];
+  description: string;
+  price: string;
+  imageURL: string;
+  category: string;
+  quantity: number;
+  createdAt: {
+    seconds: number;
+    nanoseconds: number;
+  };
 }

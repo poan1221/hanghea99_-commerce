@@ -42,6 +42,10 @@ export const useNavigate = () => {
     return navigate(ROUTES.CART.PATH, { state });
   };
 
+  const moveMyList = ({ state }: NavigateProps = {}) => {
+    return navigate(ROUTES.MYLIST.PATH, { state });
+  };
+
   return {
     moveHome,
     moveLogin,
@@ -49,6 +53,7 @@ export const useNavigate = () => {
     moveList,
     moveDetail,
     moveCart,
+    moveMyList,
     locationState,
   };
 };
