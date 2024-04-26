@@ -1,16 +1,16 @@
-import { Product } from "@/types/product";
+import { IProductInfo } from "@/types/product";
 import { IconButton } from "@/components/common/IconButton";
 
 interface ProductListItemProps {
-  data: Product;
-  onEdit: (data: Product) => void;
-  onDelete: (data: Product) => void;
+  data: IProductInfo;
+  onEdit: (data: IProductInfo) => void;
+  onDelete: (data: IProductInfo) => void;
 }
 
 const ProduectListItem = ({ data, onDelete, onEdit }: ProductListItemProps) => {
   return (
     <div className="max-w-5xl flex">
-      <div className="productInfo flex">
+      <div className="IProductInfo flex">
         <div className="w-[105px] h-[105px] bg-slate-400 mr-3">
           <img src={data.imageURL} />
         </div>

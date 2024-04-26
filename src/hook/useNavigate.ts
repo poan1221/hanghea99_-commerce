@@ -1,10 +1,10 @@
 import { useLocation, useNavigate as useReactNavigate } from "react-router-dom";
 import { ROUTES } from "@/router/router.constant";
-import { Product } from "@/types/product";
+import { IProductInfo } from "@/types/product";
 
 interface NavigateProps {
   state?: {
-    product: Product;
+    product: IProductInfo;
   };
 }
 
@@ -46,6 +46,10 @@ export const useNavigate = () => {
     return navigate(ROUTES.MYLIST.PATH, { state });
   };
 
+  const moveAddProduct = ({ state }: NavigateProps = {}) => {
+    return navigate(ROUTES.ADDPRODUCT.PATH, { state });
+  };
+
   return {
     moveHome,
     moveLogin,
@@ -54,6 +58,7 @@ export const useNavigate = () => {
     moveDetail,
     moveCart,
     moveMyList,
+    moveAddProduct,
     locationState,
   };
 };

@@ -1,3 +1,4 @@
+import { IProductForm } from "@/types/product";
 import { ISignUpForm } from "@/types/user";
 import { z } from "zod";
 
@@ -60,3 +61,58 @@ export const SignFormSchema = z
     message: "! 비밀번호가 일치하지 않습니다.",
     path: ["passwordConfirm"],
   });
+
+////// product //////
+export interface productFormInputProps {
+  id: keyof IProductForm;
+  label: string;
+  type: string;
+  placeholder?: string;
+}
+
+export const productFormInputs: productFormInputProps[] = [
+  {
+    id: "name",
+    label: "상품명",
+    type: "text",
+    placeholder: "상품명을 기입해 주세요.",
+  },
+  {
+    id: "category",
+    label: "카테고리",
+    type: "select",
+    placeholder: "카테고리를 선택해 주세요.",
+  },
+  {
+    id: "series",
+    label: "시리즈",
+    type: "select",
+    placeholder: "시리즈를 선택해 주세요.",
+  },
+  {
+    id: "price",
+    label: "가격",
+    type: "number",
+  },
+  {
+    id: "quantity",
+    label: "수량",
+    type: "number",
+  },
+  {
+    id: "description",
+    label: "상세 내용",
+    type: "text",
+    placeholder: "상품의 상세 정보를 작성해주세요.",
+  },
+];
+
+export const productFormSchema = z.object({
+  image: z.union([z.instanceof(Blob), z.string()]).refine((val) => val !== "", {
+    message: "썸네일은 필수입니다.",
+  }),
+  name: z.string().min(1, "상품명은 필수입니다.").trim(),
+  category: z.string(),
+  description: z.string().min(1, "상세 내용은 필수입니다."),
+  price: z.number().int().positive("가격은 0보다 커야 합니다."),
+});

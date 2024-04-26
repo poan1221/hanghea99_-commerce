@@ -1,7 +1,9 @@
+import { PageTitle } from "@/components/common/PageTItle";
+
 export const List = () => {
   return (
     <section>
-      <div>List</div>
+      <PageTitle title="Product List" />
     </section>
   );
 };
