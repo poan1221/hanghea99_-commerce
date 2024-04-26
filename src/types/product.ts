@@ -1,4 +1,5 @@
 export interface IProductInfo {
+  sellerId?: string;
   id: string;
   name: string;
   description: string;
@@ -11,6 +12,8 @@ export interface IProductInfo {
 }
 
 export interface IProductForm {
+  sellerId?: string;
+  id?: string;
   name: string;
   image: File | string | null;
   category: Category;

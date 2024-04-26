@@ -8,7 +8,7 @@ import {
 import { productFormInputs, productFormSchema } from "./form.constant";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useUserStore } from "@/store/useUserStore";
 import { transformdataToFormValues } from "@/utils/transformToFormValues";
 import { useEffect, useState } from "react";
@@ -25,16 +25,16 @@ import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import ImageInput from "./ImageInput";
 
 interface ProductFormProps {
-  addProduct: (data: IProductForm) => Promise<void>;
+  addProduct: (data: IProductForm) => Promise<any>;
   initialData?: IProductInfo | null;
 }
 
@@ -42,7 +42,7 @@ export const ProductForm = ({ addProduct, initialData }: ProductFormProps) => {
   const queryClient = useQueryClient();
   const user = useUserStore((state) => state.user);
 
-  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const form = useForm<IProductForm>({
     resolver: zodResolver(productFormSchema),
@@ -63,7 +63,7 @@ export const ProductForm = ({ addProduct, initialData }: ProductFormProps) => {
     if (initialData) {
       const formValues = transformdataToFormValues(initialData);
       form.reset(formValues);
-      //   setThumbnailPreview(initialData.image as string);
+      setImagePreview(initialData.image as string);
     }
   }, [initialData, form]);
 
@@ -72,10 +72,6 @@ export const ProductForm = ({ addProduct, initialData }: ProductFormProps) => {
     productFormInputs.map((input) => form.watch(input.id));
   const allWrite =
     !name || !description || !price || !category || !series || !quantity;
-
-  const onSubmit = form.handleSubmit((data) => {
-    addProduct(data);
-  });
 
   const renderOption = (id: string) => {
     switch (id) {
@@ -88,58 +84,122 @@ export const ProductForm = ({ addProduct, initialData }: ProductFormProps) => {
     }
   };
 
+  const productMutation = useMutation({
+    mutationFn: (newEventData: IProductForm) =>
+      initialData ? addProduct(newEventData) : addProduct(newEventData),
+    onSuccess: (result) => {
+      if (result.success) {
+        // queryClient.invalidateQueries(["products", user?.uid]);
+        alert("상품이 등록되었습니다.");
+        //   navigate("/my/events");
+      }
+    },
+    onError: (error) => {
+      console.error("오류가 발생하였습니다.:", error);
+    },
+  });
+
+  const onSubmit = form.handleSubmit((data: IProductForm) => {
+    const baseData: IProductForm = {
+      ...data,
+      sellerId: user?.uid as string,
+    };
+
+    if (initialData) {
+      productMutation.mutate({ ...baseData, id: initialData.id });
+    } else {
+      productMutation.mutate(baseData);
+    }
+  });
+
   return (
     <Form {...form}>
       <form onSubmit={onSubmit} className="space-y-4 text-left ">
         <ImageInput
           form={form}
-          thumbnailPreview={thumbnailPreview}
-          setThumbnailPreview={setThumbnailPreview}
+          imagePreview={imagePreview}
+          setImagePreview={setImagePreview}
         />
-        {productFormInputs.map((input) => (
-          <FormField
-            key={input.id}
-            name={input.id}
-            render={() => (
-              <FormItem>
-                <FormLabel className="font-bold text-base">
-                  {input.label}
-                </FormLabel>
-                <FormControl>
+
+        {productFormInputs
+          .filter((input) => input.type === "number" || input.type === "text")
+          .map((input) => (
+            <FormField
+              key={input.id}
+              control={form.control}
+              name={input.id}
+              render={() => (
+                <FormItem>
+                  <FormLabel className="font-bold text-base">
+                    {input.label}
+                  </FormLabel>
+                  <FormControl>
+                    {input.type === "number" ? (
+                      <Input type={input.type} {...form.register(input.id)} />
+                    ) : (
+                      <Input
+                        type={input.type}
+                        placeholder={input.placeholder}
+                        {...form.register(input.id, {
+                          setValueAs: (value) => value.trim(),
+                        })}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ))}
+
+        {productFormInputs
+          .filter(
+            (input) => input.type === "select" || input.type === "textarea"
+          )
+          .map((input) => (
+            <FormField
+              control={form.control}
+              name={input.id}
+              key={input.id}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="font-bold text-base">
+                    {input.label}
+                  </FormLabel>
                   {input.type === "select" ? (
-                    <Select {...form.register(input.id)}>
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder={input.placeholder} />
-                      </SelectTrigger>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value as string}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
                       <SelectContent>
-                        <SelectGroup>
-                          {Object.entries(renderOption(input.id)).map(
-                            ([key, label]) => (
-                              <SelectItem key={key} value={key}>
-                                {label}
-                              </SelectItem>
-                            )
-                          )}
-                        </SelectGroup>
+                        {Object.entries(renderOption(input.id)).map(
+                          ([key, label]) => (
+                            <SelectItem key={key} value={key}>
+                              {label}
+                            </SelectItem>
+                          )
+                        )}
                       </SelectContent>
                     </Select>
-                  ) : input.type === "number" ? (
-                    <Input type={input.type} {...form.register(input.id)} />
                   ) : (
-                    <Input
-                      type={input.type}
-                      placeholder={input.placeholder}
-                      {...form.register(input.id, {
-                        setValueAs: (value) => value.trim(),
-                      })}
-                    />
+                    <FormControl>
+                      <Textarea
+                        placeholder="Tell us a little bit about yourself"
+                        className="resize-none"
+                        {...field.onChange}
+                      />
+                    </FormControl>
                   )}
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        ))}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ))}
 
         <div className="pt-6">
           <Button type="submit" className="w-full" disabled={allWrite}>

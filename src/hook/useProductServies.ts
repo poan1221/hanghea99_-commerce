@@ -21,6 +21,7 @@ export const UseAddProduct = () => {
   // const { moveLogin } = useNavigate();
 
   const addProduct = async (userData: IProductForm) => {
+    // firestore에 product 추가
     const productId = doc(collection(db, "product")).id;
 
     // Storage에 thumbnail 업로드
@@ -31,6 +32,7 @@ export const UseAddProduct = () => {
     try {
       const productDocRef = doc(db, "products", productId);
       await setDoc(productDocRef, {
+        sellerId: userData.sellerId,
         uid: productId,
         image: thumbnailUrl,
         name: userData.name,
@@ -41,10 +43,9 @@ export const UseAddProduct = () => {
         quantity: userData.quantity,
         createdAt: new Date(),
       });
-      alert("상품이 정상적으로 등록되었습니다.");
-      // moveLogin();
+      return { success: true, productId };
     } catch (error) {
-      console.error("signup error:", error);
+      return { success: false, error: error };
     }
   };
 

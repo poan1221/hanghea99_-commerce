@@ -102,7 +102,7 @@ export const productFormInputs: productFormInputProps[] = [
   {
     id: "description",
     label: "상세 내용",
-    type: "text",
+    type: "textarea",
     placeholder: "상품의 상세 정보를 작성해주세요.",
   },
 ];
@@ -113,6 +113,8 @@ export const productFormSchema = z.object({
   }),
   name: z.string().min(1, "상품명은 필수입니다.").trim(),
   category: z.string(),
+  series: z.string(),
   description: z.string().min(1, "상세 내용은 필수입니다."),
   price: z.number().int().positive("가격은 0보다 커야 합니다."),
+  quantity: z.number().int().positive("수량은 0보다 커야 합니다."),
 });
