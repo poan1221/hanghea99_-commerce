@@ -5,8 +5,8 @@ import { UseAddProduct } from "@/hook/useProductServies";
 export function AddProduct() {
   const addProduct = UseAddProduct();
   return (
-    <section className="max-w-6xl section-py mx-auto">
-      <PageTitle title="ADD PRODUCT" alignLeft />
+    <section className="container max-w-6xl section-py mx-auto ">
+      <PageTitle title="상품 등록하기" alignLeft />
       <ProductForm addProduct={addProduct} />
     </section>
   );

@@ -31,7 +31,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import ImageInput from "./ImageInput";
+import ImageInput from "./inputs/ImageInput";
 
 interface ProductFormProps {
   addProduct: (data: IProductForm) => Promise<any>;
@@ -114,7 +114,7 @@ export const ProductForm = ({ addProduct, initialData }: ProductFormProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={onSubmit} className="space-y-4 text-left ">
+      <form onSubmit={onSubmit} className="space-y-4 text-left">
         <ImageInput
           form={form}
           imagePreview={imagePreview}

@@ -1,6 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { UseFormReturn } from "react-hook-form";
-// import { MdOutlineFileUpload } from "react-icons/md";
 
 import {
   FormControl,
@@ -72,7 +71,6 @@ function ImageInput({ imagePreview, setImagePreview, form }: ImageInputProps) {
         htmlFor="picture"
         className="h-fit cursor-pointer whitespace-nowrap rounded-md bg-secondary px-4 py-2 text-xs font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
       >
-        {/* <MdOutlineFileUpload /> */}
         이미지 추가 +
       </label>
       <FormField
