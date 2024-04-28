@@ -7,16 +7,17 @@ interface ProductListItemProps {
   onDelete: (data: IProductInfo) => void;
 }
 
-const ProduectListItem = ({ data, onDelete, onEdit }: ProductListItemProps) => {
+export const ProductListItem = (props: ProductListItemProps) => {
+  const { data, onDelete, onEdit } = props;
   return (
-    <div className="max-w-5xl flex">
+    <div className="productItem w-100 flex justify-between">
       <div className="IProductInfo flex">
-        <div className="w-[105px] h-[105px] bg-slate-400 mr-3">
-          <img src={data.imageURL} />
+        <div className="w-[105px] h-[105px] mr-3">
+          <img className="size-full object-cover" src={data.image} />
         </div>
-        <div className="pt-2 py-[6px]">
+        <div className="flex flex-col gap-[6px] pt-2 text-left">
           <div className="text-slate-900 font-medium text-sm">{data.name}</div>
-          <div className="text-slate-900 text-base">
+          <div className="text-slate-900 text-base font-bold">
             ₩ {Number(data.price).toLocaleString("ko-KR")}
           </div>
           {data.quantity === 0 ? (
@@ -30,18 +31,18 @@ const ProduectListItem = ({ data, onDelete, onEdit }: ProductListItemProps) => {
           )}
         </div>
       </div>
-      <div>
-        <IconButton
-          iconType="delect"
-          label="삭제하기"
-          className="bg-red-600 text-white"
-          onClick={() => onDelete(data)}
-        ></IconButton>
+      <div className="flex gap-3 items-center">
         <IconButton
           iconType="edit"
           label="수정하기"
-          className="bg-slate-400 text-stone-700"
+          className="bg-slate-200 text-stone-700 hover:bg-slate-400"
           onClick={() => onEdit(data)}
+        ></IconButton>
+        <IconButton
+          iconType="delete"
+          label="삭제하기"
+          className="bg-red-600 text-white hover:bg-red-800"
+          onClick={() => onDelete(data)}
         ></IconButton>
       </div>
     </div>

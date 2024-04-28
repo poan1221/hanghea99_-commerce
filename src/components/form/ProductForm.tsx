@@ -32,15 +32,20 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import ImageInput from "./inputs/ImageInput";
+import { useNavigate } from "@/hook/useNavigate";
 
 interface ProductFormProps {
-  addProduct: (data: IProductForm) => Promise<any>;
+  productFormHandle: (data: IProductForm) => Promise<any>;
   initialData?: IProductInfo | null;
 }
 
-export const ProductForm = ({ addProduct, initialData }: ProductFormProps) => {
+export const ProductForm = ({
+  productFormHandle,
+  initialData,
+}: ProductFormProps) => {
   const queryClient = useQueryClient();
   const user = useUserStore((state) => state.user);
+  const { moveMyList } = useNavigate();
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
@@ -67,11 +72,13 @@ export const ProductForm = ({ addProduct, initialData }: ProductFormProps) => {
     }
   }, [initialData, form]);
 
-  //  확인용
-  const [name, description, price, category, series, quantity] =
-    productFormInputs.map((input) => form.watch(input.id));
-  const allWrite =
-    !name || !description || !price || !category || !series || !quantity;
+  //  확인용_ 이거 왜 안되지
+  // const [name, description, price, category, series, quantity] =
+  //   productFormInputs.map((input) => form.watch(input.id));
+  // const allWrite =
+  //   !name || !description || !price || !category || !series || !quantity;
+
+  // console.log("allWrite", allWrite);
 
   const renderOption = (id: string) => {
     switch (id) {
@@ -85,13 +92,13 @@ export const ProductForm = ({ addProduct, initialData }: ProductFormProps) => {
   };
 
   const productMutation = useMutation({
-    mutationFn: (newEventData: IProductForm) =>
-      initialData ? addProduct(newEventData) : addProduct(newEventData),
+    mutationFn: (newEventData: IProductForm) => productFormHandle(newEventData),
     onSuccess: (result) => {
       if (result.success) {
-        // queryClient.invalidateQueries(["products", user?.uid]);
-        alert("상품이 등록되었습니다.");
-        //   navigate("/my/events");
+        queryClient.invalidateQueries({ queryKey: ["products", user?.uid] });
+        moveMyList();
+      } else {
+        console.error(result.error);
       }
     },
     onError: (error) => {
@@ -106,7 +113,7 @@ export const ProductForm = ({ addProduct, initialData }: ProductFormProps) => {
     };
 
     if (initialData) {
-      productMutation.mutate({ ...baseData, id: initialData.id });
+      productMutation.mutate({ ...baseData, uid: initialData.id });
     } else {
       productMutation.mutate(baseData);
     }
@@ -170,10 +177,11 @@ export const ProductForm = ({ addProduct, initialData }: ProductFormProps) => {
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value as string}
+                      value={field.value as string}
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a verified email to display" />
+                          <SelectValue placeholder="필수 선택사항입니다." />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -189,9 +197,9 @@ export const ProductForm = ({ addProduct, initialData }: ProductFormProps) => {
                   ) : (
                     <FormControl>
                       <Textarea
-                        placeholder="Tell us a little bit about yourself"
+                        placeholder="상품의 상세 정보를 작성해주세요."
                         className="resize-none"
-                        {...field.onChange}
+                        {...field}
                       />
                     </FormControl>
                   )}
@@ -202,8 +210,8 @@ export const ProductForm = ({ addProduct, initialData }: ProductFormProps) => {
           ))}
 
         <div className="pt-6">
-          <Button type="submit" className="w-full" disabled={allWrite}>
-            상품 등록하기
+          <Button type="submit" className="w-full">
+            {initialData ? "상품 수정하기" : "상품 등록하기"}
           </Button>
         </div>
       </form>

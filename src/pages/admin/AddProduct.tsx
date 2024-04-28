@@ -7,7 +7,7 @@ export function AddProduct() {
   return (
     <section className="container max-w-6xl section-py mx-auto ">
       <PageTitle title="상품 등록하기" alignLeft />
-      <ProductForm addProduct={addProduct} />
+      <ProductForm productFormHandle={addProduct} />
     </section>
   );
 }
