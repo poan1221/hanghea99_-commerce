@@ -72,14 +72,6 @@ export const ProductForm = ({
     }
   }, [initialData, form]);
 
-  //  확인용_ 이거 왜 안되지
-  // const [name, description, price, category, series, quantity] =
-  //   productFormInputs.map((input) => form.watch(input.id));
-  // const allWrite =
-  //   !name || !description || !price || !category || !series || !quantity;
-
-  // console.log("allWrite", allWrite);
-
   const renderOption = (id: string) => {
     switch (id) {
       case "category":

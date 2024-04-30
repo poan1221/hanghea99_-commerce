@@ -1,5 +1,5 @@
 import { Routes } from "./router.type";
-import { List, Detail } from "../pages/product";
+import { ProductList, Detail } from "../pages/product";
 import { Main, Cart, NotFound, Login, SignUp } from "../pages";
 import { MyList, AddProduct, EditProduct } from "../pages/admin";
 
@@ -25,7 +25,7 @@ export const ROUTES: Routes = {
   LIST: {
     PATH: "/list",
     isAuth: false,
-    COMPONENT: List,
+    COMPONENT: ProductList,
   },
 
   DETAIL: {

@@ -4,7 +4,7 @@ import { ROUTES } from "./router.constant";
 // 카테고리별 라우트 추가 필요
 const NAV_ROUTES = {
   LIST: {
-    ...ROUTES.LIST,
+    ...ROUTES.HOME,
     TITLE: "New ARRIVAL",
   },
 } as const;

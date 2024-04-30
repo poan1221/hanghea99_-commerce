@@ -18,8 +18,8 @@ export const Header = () => {
   };
 
   return (
-    <header className="border-b container border-slate-200">
-      <div className="max-w-1200 nav flex justify-between">
+    <header className="border-b border-slate-200">
+      <div className="container max-w-1200 nav flex justify-between">
         <div className="text-left pt-4">
           <h1 className="nav-title hover mb-4" onClick={() => moveHome()}>
             <img src={shopLogo} alt="logo" />
