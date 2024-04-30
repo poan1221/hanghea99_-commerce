@@ -3,19 +3,27 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDoc,
   getDocs,
-  orderBy,
-  query,
   setDoc,
   updateDoc,
   where,
-  writeBatch,
+  orderBy,
+  query,
+  startAfter,
+  limit,
+  QueryDocumentSnapshot,
+  DocumentData,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 import { db, storage } from "@/firebase";
-import { IProductForm, IProductInfo } from "@/types/product";
+import {
+  Category,
+  IProductForm,
+  IProductInfo,
+  ProductsResponse,
+  Series,
+} from "@/types/product";
 
 export const UseAddProduct = () => {
   const addProduct = async (userData: IProductForm) => {
@@ -95,28 +103,6 @@ export const UseEditProduct = () => {
   return editProduct;
 };
 
-export const getMyProducts = async (
-  sellerId: string
-): Promise<IProductInfo[]> => {
-  const productRef = collection(db, "products");
-
-  const q = query(
-    productRef,
-    // 여기 왜 안되용?
-    // where("sellerId", "==", sellerId),
-    orderBy("createdAt", "desc")
-  );
-
-  const querySnapshot = await getDocs(q);
-
-  const myProducts = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...(doc.data() as IProductInfo),
-  }));
-
-  return myProducts;
-};
-
 export const deleteProduct = async (productId: string) => {
   try {
     const productRef = doc(db, "products", productId);
@@ -137,4 +123,42 @@ export const deleteProduct = async (productId: string) => {
       };
     }
   }
+};
+
+// 상품 가져오기 - 무한 스크롤로 변경
+export const getProducts = async (
+  pageParam: QueryDocumentSnapshot<DocumentData> | null,
+  category?: Category,
+  series?: Series
+): Promise<ProductsResponse> => {
+  const productRef = collection(db, "products");
+
+  // switch문으로 category, series에 따라 쿼리 변경?
+  const baseQuery = category
+    ? query(
+        productRef,
+        where("category", "==", category),
+        orderBy("createdAt", "desc")
+      )
+    : series
+    ? query(
+        productRef,
+        where("series", "==", series),
+        orderBy("createdAt", "desc")
+      )
+    : query(productRef, orderBy("createdAt", "desc"));
+
+  const completeQuery = pageParam
+    ? query(baseQuery, startAfter(pageParam), limit(2))
+    : query(baseQuery, limit(2));
+
+  const querySnapshot = await getDocs(completeQuery);
+  const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+  const products = querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...(doc.data() as IProductInfo),
+  }));
+  // console.log("Last Visible Document:", lastVisible);
+  // console.log("querySnapshot", querySnapshot);
+  return { products, nextPage: lastVisible };
 };

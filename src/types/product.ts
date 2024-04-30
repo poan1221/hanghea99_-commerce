@@ -1,3 +1,5 @@
+import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+
 export interface IProductInfo {
   sellerId?: string;
   uid: string;
@@ -47,3 +49,8 @@ export const SERIES: OptionMap = {
 } as const;
 
 export type Series = keyof typeof SERIES;
+
+export interface ProductsResponse {
+  products: IProductInfo[];
+  nextPage: QueryDocumentSnapshot<DocumentData> | null;
+}
