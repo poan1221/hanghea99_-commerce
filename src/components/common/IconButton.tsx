@@ -5,7 +5,7 @@ interface IconButtonProps {
   iconType: IconType;
   label?: string;
   className?: string;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent) => void;
 }
 
 export const IconButton = ({

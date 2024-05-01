@@ -129,7 +129,8 @@ export const deleteProduct = async (productId: string) => {
 export const getProducts = async (
   pageParam: QueryDocumentSnapshot<DocumentData> | null,
   category?: Category,
-  series?: Series
+  series?: Series,
+  limitNumber: number = 8
 ): Promise<ProductsResponse> => {
   const productRef = collection(db, "products");
 
@@ -149,16 +150,16 @@ export const getProducts = async (
     : query(productRef, orderBy("createdAt", "desc"));
 
   const completeQuery = pageParam
-    ? query(baseQuery, startAfter(pageParam), limit(2))
-    : query(baseQuery, limit(2));
+    ? query(baseQuery, startAfter(pageParam), limit(limitNumber))
+    : query(baseQuery, limit(limitNumber));
 
   const querySnapshot = await getDocs(completeQuery);
+
   const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
   const products = querySnapshot.docs.map((doc) => ({
     id: doc.id,
     ...(doc.data() as IProductInfo),
   }));
-  // console.log("Last Visible Document:", lastVisible);
-  // console.log("querySnapshot", querySnapshot);
+
   return { products, nextPage: lastVisible };
 };

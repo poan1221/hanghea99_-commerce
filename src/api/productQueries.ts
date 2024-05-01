@@ -1,7 +1,16 @@
 import { getProducts } from "@/hook/useProductServies";
-import { ProductsResponse } from "@/types/product";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { ProductsResponse, Series } from "@/types/product";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+
+// 첫 홈 화면의 useQuery
+export const useQueryInitialProducts = (series: Series) => {
+  return useQuery<ProductsResponse>({
+    queryKey: ["initial-products", series],
+    queryFn: () => getProducts(null, undefined, series, 4),
+    refetchOnWindowFocus: false,
+  });
+};
 
 // 전체 상품 목록 불러오기
 export const useGetAllProducts = () => {

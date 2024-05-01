@@ -10,6 +10,11 @@ interface ProductCardProps {
 export const ProductCard = (props: ProductCardProps) => {
   const { data, onLiked, onClickCard } = props;
 
+  const handleLiked = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    onLiked(data);
+  };
+
   return (
     <div
       className="poductCard cursor-pointer"
@@ -27,7 +32,7 @@ export const ProductCard = (props: ProductCardProps) => {
           <img className="size-full object-cover" src={data.image} />
         </div>
         <div className="absolute right-[14px] bottom-[14px]">
-          <IconButton iconType="liked" onClick={() => onLiked(data)} />
+          <IconButton iconType="liked" onClick={handleLiked} />
         </div>
       </div>
       <div className="pt-4 pb-2 text-slate-900 font-medium text-sm">
