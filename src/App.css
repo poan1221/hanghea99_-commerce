@@ -27,6 +27,12 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.productsWrap .productItem + .productItem {
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid #eaeaea;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

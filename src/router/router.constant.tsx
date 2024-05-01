@@ -1,6 +1,7 @@
 import { Routes } from "./router.type";
-import { List, Detail } from "../pages/product";
+import { ProductList, Detail } from "../pages/product";
 import { Main, Cart, NotFound, Login, SignUp } from "../pages";
+import { MyList, AddProduct, EditProduct } from "../pages/admin";
 
 export const ROUTES: Routes = {
   HOME: {
@@ -24,7 +25,7 @@ export const ROUTES: Routes = {
   LIST: {
     PATH: "/list",
     isAuth: false,
-    COMPONENT: List,
+    COMPONENT: ProductList,
   },
 
   DETAIL: {
@@ -37,6 +38,24 @@ export const ROUTES: Routes = {
     PATH: "/cart",
     isAuth: true,
     COMPONENT: Cart,
+  },
+
+  MYLIST: {
+    PATH: "/mylist",
+    isAuth: true,
+    COMPONENT: MyList,
+  },
+
+  ADDPRODUCT: {
+    PATH: "/addProduct",
+    isAuth: true,
+    COMPONENT: AddProduct,
+  },
+
+  EDITPRODUCT: {
+    PATH: "/editProduct/:id",
+    isAuth: true,
+    COMPONENT: EditProduct,
   },
 
   // 추가...

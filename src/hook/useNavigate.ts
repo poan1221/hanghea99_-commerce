@@ -1,22 +1,26 @@
 import { useLocation, useNavigate as useReactNavigate } from "react-router-dom";
 import { ROUTES } from "@/router/router.constant";
-import { Product } from "@/types/product";
+import { IProductInfo } from "@/types/product";
 
 interface NavigateProps {
   state?: {
-    product: Product;
+    product: IProductInfo;
   };
 }
 
 const Parser = {
-  dynamicRoute(path: string, id: number) {
-    return path.replace(":id", id.toString());
+  dynamicRoute(path: string, id: string) {
+    return path.replace(":id", id);
   },
 };
 
 export const useNavigate = () => {
   const navigate = useReactNavigate();
   const { state: locationState } = useLocation();
+
+  const moveBack = () => {
+    return navigate(-1);
+  };
 
   const moveHome = ({ state }: NavigateProps = {}) => {
     return navigate(ROUTES.HOME.PATH, { state });
@@ -34,7 +38,7 @@ export const useNavigate = () => {
     return navigate(ROUTES.LIST.PATH, { state });
   };
 
-  const moveDetail = (id: number, { state }: NavigateProps = {}) => {
+  const moveDetail = (id: string, { state }: NavigateProps = {}) => {
     return navigate(Parser.dynamicRoute(ROUTES.DETAIL.PATH, id), { state });
   };
 
@@ -42,13 +46,31 @@ export const useNavigate = () => {
     return navigate(ROUTES.CART.PATH, { state });
   };
 
+  const moveMyList = ({ state }: NavigateProps = {}) => {
+    return navigate(ROUTES.MYLIST.PATH, { state });
+  };
+
+  const moveAddProduct = ({ state }: NavigateProps = {}) => {
+    return navigate(ROUTES.ADDPRODUCT.PATH, { state });
+  };
+
+  const moveEditProduct = (id: string, { state }: NavigateProps = {}) => {
+    return navigate(Parser.dynamicRoute(ROUTES.EDITPRODUCT.PATH, id), {
+      state,
+    });
+  };
+
   return {
+    moveBack,
     moveHome,
     moveLogin,
     moveSignup,
     moveList,
     moveDetail,
     moveCart,
+    moveMyList,
+    moveAddProduct,
+    moveEditProduct,
     locationState,
   };
 };
