@@ -10,11 +10,10 @@ interface WishButtonProps {
 
 export const WishedButton = ({ productUID }: WishButtonProps) => {
   const user = useUserStore((state) => state.user);
-  // const { addToast } = useToast();
   const [isWished, setIsWished] = useState<boolean>(false);
 
   const { data: wishProducts, isSuccess } = useQuery({
-    queryKey: ["userLikes", user?.uid],
+    queryKey: ["userWishes", user?.uid],
     queryFn: () => getUserWishes(user?.uid as string),
     enabled: !!user?.uid,
   });
@@ -28,6 +27,7 @@ export const WishedButton = ({ productUID }: WishButtonProps) => {
   const toggleWishMutation = useMutation({
     mutationFn: () => toggleWishProduct(user!.uid as string, productUID),
     onSuccess: () => {
+      alert("위시리스트에 추가되었습니다.");
       setIsWished((prev) => !prev);
     },
     onError: (error) => {
@@ -50,11 +50,9 @@ export const WishedButton = ({ productUID }: WishButtonProps) => {
     <IconButton
       iconType={isWished ? "heartFill" : "heart"}
       onClick={handleWish}
-      className={
-        isWished
-          ? "bg-tansparent hover:bg-gray-100 text-red-600"
-          : "bg-tansparent hover:bg-opacity-10 hover:bg-gray-400 text-gray-500 hover:text-red-600"
-      }
+      className={`bg-tansparent hover:bg-gray-400 hover:bg-opacity-10 p-2 ${
+        isWished ? "text-red-600" : "text-gray-500 hover:text-red-600"
+      }`}
     />
   );
 };

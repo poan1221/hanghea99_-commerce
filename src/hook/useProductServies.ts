@@ -84,7 +84,7 @@ export const UseEditProduct = () => {
       const productDocRef = doc(db, "products", data.uid!);
       await updateDoc(productDocRef, {
         sellerId: data.sellerId,
-        uid: productId,
+        uid: data.uid,
         image: thumbnailUrl,
         name: data.name,
         category: data.category,
@@ -178,7 +178,7 @@ export const toggleWishProduct = async (userId: string, productId: string) => {
     const productSnap = await transaction.get(productRef);
 
     if (!productSnap.exists()) {
-      throw new Error("Event does not exist!");
+      throw new Error("product does not exist!");
     }
 
     if (Wishesnap.exists()) {

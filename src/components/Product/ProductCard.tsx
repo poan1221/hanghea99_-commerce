@@ -11,7 +11,7 @@ export const ProductCard = (props: ProductCardProps) => {
   const { moveDetail } = useNavigate();
   return (
     <div
-      className="poductCard cursor-pointer text-left"
+      className="poductCard cursor-pointer text-left p-3 border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 ease-in-out"
       onClick={() =>
         moveDetail(data.uid, {
           state: {
@@ -31,7 +31,7 @@ export const ProductCard = (props: ProductCardProps) => {
         <div className="w-100 h-100">
           <img className="size-full object-cover" src={data.image} />
         </div>
-        <div className="absolute right-[14px] bottom-[14px]">
+        <div className="absolute right-0 bottom-0">
           <WishedButton productUID={data.uid} />
         </div>
       </div>

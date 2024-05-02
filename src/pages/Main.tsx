@@ -15,7 +15,7 @@ export const Main = () => {
           />
         </div>
       </section>
-      {/* 최신 상품 리스트 _ 최대 16개 */}
+      {/* 시리즈별  _ 4개씩*/}
       <ProductList></ProductList>
     </>
   );
