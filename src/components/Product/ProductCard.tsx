@@ -1,24 +1,24 @@
 import { IProductInfo } from "@/types/product";
-import { IconButton } from "@/components/common/IconButton";
+import { WishedButton } from "./LikedButton";
+import { useNavigate } from "@/hook/useNavigate";
 
 interface ProductCardProps {
   data: IProductInfo;
-  onClickCard: (data: IProductInfo) => void;
-  onLiked: (data: IProductInfo) => void;
 }
 
 export const ProductCard = (props: ProductCardProps) => {
-  const { data, onLiked, onClickCard } = props;
-
-  const handleLiked = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    onLiked(data);
-  };
-
+  const data = props.data;
+  const { moveDetail } = useNavigate();
   return (
     <div
-      className="poductCard cursor-pointer"
-      onClick={() => onClickCard(data)}
+      className="poductCard cursor-pointer text-left"
+      onClick={() =>
+        moveDetail(data.uid, {
+          state: {
+            product: data,
+          },
+        })
+      }
     >
       <div className="imgBoxWrap relative">
         {data.quantity === 0 ? (
@@ -32,7 +32,7 @@ export const ProductCard = (props: ProductCardProps) => {
           <img className="size-full object-cover" src={data.image} />
         </div>
         <div className="absolute right-[14px] bottom-[14px]">
-          <IconButton iconType="liked" onClick={handleLiked} />
+          <WishedButton productUID={data.uid} />
         </div>
       </div>
       <div className="pt-4 pb-2 text-slate-900 font-medium text-sm">

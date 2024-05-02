@@ -54,3 +54,10 @@ export interface ProductsResponse {
   products: IProductInfo[];
   nextPage: QueryDocumentSnapshot<DocumentData> | null;
 }
+
+export interface WishProduct {
+  id: string;
+  productId: string;
+  userId: string;
+  wishedAt: number;
+}

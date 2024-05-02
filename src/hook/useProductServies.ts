@@ -13,6 +13,7 @@ import {
   limit,
   QueryDocumentSnapshot,
   DocumentData,
+  runTransaction,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
@@ -23,6 +24,7 @@ import {
   IProductInfo,
   ProductsResponse,
   Series,
+  WishProduct,
 } from "@/types/product";
 
 export const UseAddProduct = () => {
@@ -162,4 +164,38 @@ export const getProducts = async (
   }));
 
   return { products, nextPage: lastVisible };
+};
+
+// wishProduct 추가
+export const toggleWishProduct = async (userId: string, productId: string) => {
+  const userWishesRef = collection(db, "userWishes");
+  const wishRef = doc(userWishesRef, `${userId}_${productId}`);
+  const productRef = doc(db, "products", productId);
+
+  // 트랜잭션을 사용하여 위시리스트 추가/삭제
+  await runTransaction(db, async (transaction) => {
+    const Wishesnap = await transaction.get(wishRef);
+    const productSnap = await transaction.get(productRef);
+
+    if (!productSnap.exists()) {
+      throw new Error("Event does not exist!");
+    }
+
+    if (Wishesnap.exists()) {
+      transaction.delete(wishRef);
+    } else {
+      transaction.set(wishRef, {
+        userId,
+        productId,
+        wishedAt: new Date(),
+      });
+    }
+  });
+};
+
+// 위시리스트 가져오기
+export const getUserWishes = async (userId: string): Promise<WishProduct[]> => {
+  const q = query(collection(db, "userWishes"), where("userId", "==", userId));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map((doc) => doc.data() as WishProduct);
 };
