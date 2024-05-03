@@ -1,5 +1,10 @@
 import { Routes } from "./router.type";
-import { ProductList, Detail } from "../pages/product";
+import {
+  ProductList,
+  Detail,
+  ProductCategoryList,
+  ProductSeriesList,
+} from "../pages/product";
 import { Main, Cart, NotFound, Login, SignUp } from "../pages";
 import { MyList, AddProduct, EditProduct } from "../pages/admin";
 
@@ -58,6 +63,17 @@ export const ROUTES: Routes = {
     COMPONENT: EditProduct,
   },
 
+  CATEGORYLIST: {
+    PATH: "/category/:id",
+    isAuth: false,
+    COMPONENT: ProductCategoryList,
+  },
+
+  SERIESLIST: {
+    PATH: "/series/:id",
+    isAuth: false,
+    COMPONENT: ProductSeriesList,
+  },
   // 추가...
 
   //   ORDER: {

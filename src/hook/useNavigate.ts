@@ -59,6 +59,11 @@ export const useNavigate = () => {
       state,
     });
   };
+  const moveCategoryList = (id: string, { state }: NavigateProps = {}) => {
+    return navigate(Parser.dynamicRoute(ROUTES.CATEGORYLIST.PATH, id), {
+      state,
+    });
+  };
 
   return {
     moveBack,
@@ -71,6 +76,7 @@ export const useNavigate = () => {
     moveMyList,
     moveAddProduct,
     moveEditProduct,
+    moveCategoryList,
     locationState,
   };
 };
