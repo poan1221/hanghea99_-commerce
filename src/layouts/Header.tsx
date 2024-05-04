@@ -20,16 +20,17 @@ export const Header = () => {
   return (
     <header className="border-b border-slate-200">
       <div className="container max-w-1200 nav flex justify-between">
-        <div className="text-left pt-4">
-          <h1 className="nav-title hover mb-4" onClick={() => moveHome()}>
+        <div className="text-left pt-6">
+          <h1 className="nav-title hover mb-6" onClick={() => moveHome()}>
             <img src={shopLogo} alt="logo" />
           </h1>
           <Navigation />
+          {/* 모바일 버전 넣어야 함 */}
         </div>
         <div className="flex-center py-4">
           {user ? (
             <button
-              className="nav-button hover flex items-center"
+              className="nav-button hover flex items-center text-sm"
               onClick={handleLogout}
             >
               <Icon type={"logOut"} /> 로그아웃
