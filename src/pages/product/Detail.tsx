@@ -1,4 +1,3 @@
-import { CounterInput } from "@/components/Product/CounterInput";
 import { IconButton } from "@/components/common/IconButton";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "@/hook/useNavigate";
@@ -10,13 +9,15 @@ export const Detail = () => {
     moveBack,
   } = useNavigate();
 
-  const [quantity, setQuantity] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(product.price);
+  const [quantity, setQuantity] = useState(0);
+  const totalPrice = product.price * quantity;
 
-  const handleQuantityChange = (newQuantity: number) => {
-    console.log("newQuantity", newQuantity);
-    setQuantity(newQuantity); // 상태 업데이트
-    // setTotalPrice(product.price * newQuantity); // 상품 금액 업데이트
+  const decrement = () => {
+    setQuantity((prevQuantity) => (prevQuantity === 0 ? 0 : prevQuantity - 1));
+  };
+
+  const increment = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
   const handleGoCart = () => {
@@ -42,7 +43,7 @@ export const Detail = () => {
         </div>
       </div>
       <div className="productWrap flex flex-col lg:flex-row lg:gap-3">
-        <div className="w-full lg:w-1/2 border">
+        <div className="w-full lg:w-1/2">
           <img
             className="w-full h-full object-cover"
             src={product.image}
@@ -70,24 +71,35 @@ export const Detail = () => {
             </tbody>
           </table>
           <div className="py-4 border-t mt-4">
-            <div className="flex">
+            <div className="flex items-center">
               <div className="w-[100px]">구매 수량</div>
-              <div>
-                <CounterInput
-                  value={quantity}
-                  onChange={handleQuantityChange}
-                />
+              <div className="flex items-center">
+                <Button
+                  className="w-8 h-8 border border-gray-300 bg-white text-slate-900 hover:bg-slate-50 font-bold"
+                  onClick={decrement}
+                >
+                  -
+                </Button>
+                <span className="inline-block w-8 text-center">{quantity}</span>
+                <Button
+                  className="w-8 h-8 border border-gray-300 bg-white text-slate-900 hover:bg-slate-50"
+                  onClick={increment}
+                >
+                  +
+                </Button>
               </div>
             </div>
           </div>
-          <div className="py-4 border-t-2 border-slate-900 text-right">
-            <div className="inline-flex gap-4 items-center">
-              <div className="text-sm">총 상품 금액</div>
-              <div className="font-bold text-3xl text-red-500">
-                {Number(totalPrice).toLocaleString("ko-KR")} 원
+          {totalPrice > 0 && (
+            <div className="py-4 border-t-2 border-slate-700 text-right">
+              <div className="inline-flex gap-4 items-top">
+                <div className="text-sm">총 상품 금액</div>
+                <div className="font-bold text-3xl text-red-500">
+                  {Number(totalPrice).toLocaleString("ko-KR")} 원
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <div className="py-4 flex">
             <Button
               className="w-1/2 text-lg rounded-none"
@@ -103,6 +115,10 @@ export const Detail = () => {
             </Button>
           </div>
         </div>
+      </div>
+      <div className="productDescription mt-4 text-left">
+        <div className="font-bold text-lg">상세 정보</div>
+        <div className="mt-4">{product.description}</div>
       </div>
     </section>
   );
