@@ -19,6 +19,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 import { db, storage } from "@/firebase";
 import {
+  CATEGORIES,
   Category,
   IProductForm,
   IProductInfo,
@@ -130,26 +131,26 @@ export const deleteProduct = async (productId: string) => {
 // 상품 가져오기 - 무한 스크롤로 변경
 export const getProducts = async (
   pageParam: QueryDocumentSnapshot<DocumentData> | null,
-  category?: Category,
-  series?: Series,
+  selectedType?: Series | Category,
   limitNumber: number = 8
 ): Promise<ProductsResponse> => {
   const productRef = collection(db, "products");
+  const isCategory = (selectedType as string) in CATEGORIES;
 
-  // switch문으로 category, series에 따라 쿼리 변경?
-  const baseQuery = category
-    ? query(
-        productRef,
-        where("category", "==", category),
-        orderBy("createdAt", "desc")
-      )
-    : series
-    ? query(
-        productRef,
-        where("series", "==", series),
-        orderBy("createdAt", "desc")
-      )
-    : query(productRef, orderBy("createdAt", "desc"));
+  const baseQuery =
+    selectedType && isCategory
+      ? query(
+          productRef,
+          where("category", "==", selectedType),
+          orderBy("createdAt", "desc")
+        )
+      : selectedType && !isCategory
+      ? query(
+          productRef,
+          where("series", "==", selectedType),
+          orderBy("createdAt", "desc")
+        )
+      : query(productRef, orderBy("createdAt", "desc"));
 
   const completeQuery = pageParam
     ? query(baseQuery, startAfter(pageParam), limit(limitNumber))
