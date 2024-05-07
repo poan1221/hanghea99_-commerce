@@ -1,11 +1,12 @@
 import { useGetSelectedProducts } from "@/api/productQueries";
-import { ProductCard } from "@/components/Product/ProductCard";
+import ErrorBox from "@/components/common/ErrorBox";
 import ProductCardSkelton from "@/components/Product/ProductCardSkelecton";
 import { PageTitle } from "@/components/common/PageTItle";
 import { addSpaceSeriesTitle } from "@/utils/addSpaceSeriesTitle";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useParams } from "react-router-dom";
+import { ProductList } from ".";
 
 export const ProductSelectedList = () => {
   const selectedType = useParams().id;
@@ -34,26 +35,24 @@ export const ProductSelectedList = () => {
     }
   }, [inView, hasNextPage, fetchNextPage, isFetchingNextPage]);
 
+  if (isError) {
+    return <ErrorBox />;
+  }
+
+  const products = data?.pages.flatMap((page) => page.products) || [];
+
   return (
     <section className="container productsWrap max-w-4xl mt-11 mx-auto">
       <PageTitle title={getTitle(selectedType as string)} alignLeft />
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        {isLoading && <ProductCardSkelton productsPerRow={4} />}
-        {isError && <div>에러가 발생했습니다.</div>}
-        {data?.pages && data.pages[0].products.length === 0 && (
-          <div className="text-center col-span-full">
-            추가된 상품이 존재하지 않습니다.
-          </div>
-        )}
-        {data?.pages &&
-          data?.pages.flatMap((page) =>
-            page.products.map((product) => (
-              <ProductCard data={product} key={product.name} />
-            ))
-          )}
-        <div ref={hasNextPage ? ref : undefined} />
-        {isFetchingNextPage && <p>Loading more...</p>}
-      </div>
+      {isLoading ? (
+        <ProductCardSkelton productsPerRow={4} />
+      ) : (
+        <>
+          <ProductList products={products} />
+          <div ref={hasNextPage ? ref : undefined} />
+          {isFetchingNextPage && <p>Loading more...</p>}
+        </>
+      )}
     </section>
   );
 };

@@ -28,7 +28,7 @@ export const ProductCard = (props: ProductCardProps) => {
             </span>
           </div>
         ) : null}
-        <div className="w-100 h-100">
+        <div className="w-100 h-100 min-h-[170px]">
           <img className="size-full object-cover" src={data.image} />
         </div>
         <div className="absolute right-0 bottom-0">

@@ -1,8 +1,35 @@
-import { CATEGORIES } from "@/types/product";
-import { Link } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
+import { useGetAllProducts } from "@/api/productQueries";
 import { ProductList } from "@/pages/product";
+import ErrorBox from "@/components/common/ErrorBox";
+import { PageTitle } from "@/components/common/PageTItle";
+import ProductCardSkelton from "@/components/Product/ProductCardSkelecton";
 
 export const Main = () => {
+  const { ref, inView } = useInView();
+
+  const {
+    data,
+    isLoading,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGetAllProducts();
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage, isFetchingNextPage]);
+
+  if (isError) {
+    return <ErrorBox />;
+  }
+
+  const products = data?.pages.flatMap((page) => page.products) || [];
+
   return (
     <>
       {/* 홍보용 배너 */}
@@ -16,7 +43,18 @@ export const Main = () => {
         </div>
       </section>
       {/* 시리즈별  _ 4개씩*/}
-      <ProductList></ProductList>
+      <section className="container productsWrap max-w-4xl mt-11 mx-auto">
+        <PageTitle title="New Arrival" />
+        {isLoading ? (
+          <ProductCardSkelton productsPerRow={4} />
+        ) : (
+          <>
+            <ProductList products={products} />
+            <div ref={hasNextPage ? ref : undefined} />
+            {isFetchingNextPage && <p>Loading more...</p>}
+          </>
+        )}
+      </section>
     </>
   );
 };
