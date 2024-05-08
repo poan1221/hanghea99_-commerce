@@ -1,4 +1,4 @@
-export const Cart = () => {
+export const CartList = () => {
   return (
     <section>
       <div>cart</div>

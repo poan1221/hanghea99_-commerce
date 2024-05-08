@@ -13,6 +13,7 @@ export const useCheckCanOrder = ({ user, productQuantity }: CheckProps) => {
     if (!user) {
       alert("로그인이 필요합니다.");
       moveLogin();
+      return false;
     } else if (user && user?.userType === "seller") {
       alert("판매자는 상품을 구매할 수 없습니다.");
       return false;

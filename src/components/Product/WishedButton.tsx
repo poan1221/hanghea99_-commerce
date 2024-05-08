@@ -3,6 +3,7 @@ import { useUserStore } from "@/store/useUserStore";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { IconButton } from "../common/IconButton";
+import { useNavigate } from "@/hook/useNavigate";
 
 interface WishButtonProps {
   productUID: string;
@@ -10,6 +11,7 @@ interface WishButtonProps {
 
 export const WishedButton = ({ productUID }: WishButtonProps) => {
   const user = useUserStore((state) => state.user);
+  const { moveLogin } = useNavigate();
   const [isWished, setIsWished] = useState<boolean>(false);
 
   const { data: wishProducts, isSuccess } = useQuery({
@@ -39,6 +41,7 @@ export const WishedButton = ({ productUID }: WishButtonProps) => {
     event.stopPropagation();
     if (!user) {
       alert("로그인이 필요합니다.");
+      moveLogin();
       return;
     }
     if (window.confirm("이 상품을 위시리스트에 담으시겠습니까?")) {
@@ -50,9 +53,8 @@ export const WishedButton = ({ productUID }: WishButtonProps) => {
     <IconButton
       iconType={isWished ? "heartFill" : "heart"}
       onClick={handleWish}
-      className={`bg-tansparent hover:bg-gray-400 hover:bg-opacity-10 ${
-        isWished ? "text-red-600" : "text-gray-500 hover:text-red-600"
-      }`}
+      isTransperent
+      className={isWished ? "text-red-600" : "text-gray-500 hover:text-red-600"}
     />
   );
 };

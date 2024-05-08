@@ -46,6 +46,10 @@ export const useNavigate = () => {
     return navigate(ROUTES.CART.PATH, { state });
   };
 
+  const moveWish = ({ state }: NavigateProps = {}) => {
+    return navigate(ROUTES.WISHLIST.PATH, { state });
+  };
+
   const moveMyList = ({ state }: NavigateProps = {}) => {
     return navigate(ROUTES.MYLIST.PATH, { state });
   };
@@ -78,6 +82,7 @@ export const useNavigate = () => {
     moveList,
     moveDetail,
     moveCart,
+    moveWish,
     moveMyList,
     moveAddProduct,
     moveEditProduct,
