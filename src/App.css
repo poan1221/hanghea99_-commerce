@@ -64,6 +64,7 @@
   background-position: 0 100%;
   background-repeat: no-repeat;
   transition: background-size 0.5s ease-in-out;
+  padding-bottom: 4px;
 }
 .global-nav-wrap > .nav-item:hover,
 .global-nav-wrap > .nav-item-active {

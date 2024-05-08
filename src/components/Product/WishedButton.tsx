@@ -50,7 +50,7 @@ export const WishedButton = ({ productUID }: WishButtonProps) => {
     <IconButton
       iconType={isWished ? "heartFill" : "heart"}
       onClick={handleWish}
-      className={`bg-tansparent hover:bg-gray-400 hover:bg-opacity-10 p-2 ${
+      className={`bg-tansparent hover:bg-gray-400 hover:bg-opacity-10 ${
         isWished ? "text-red-600" : "text-gray-500 hover:text-red-600"
       }`}
     />

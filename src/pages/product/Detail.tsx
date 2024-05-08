@@ -1,12 +1,16 @@
+import { CartButton } from "@/components/Product/CartButton";
 import { IconButton } from "@/components/common/IconButton";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "@/hook/useNavigate";
+import { addSpaceSeriesTitle } from "@/utils/addSpaceSeriesTitle";
 import { useState } from "react";
 
 export const Detail = () => {
   const {
     locationState: { product },
     moveBack,
+    moveSeriesList,
+    moveCategoryList,
   } = useNavigate();
 
   const [quantity, setQuantity] = useState(0);
@@ -20,10 +24,6 @@ export const Detail = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
-  const handleGoCart = () => {
-    // 여기에서는 구매를 진행하기 위한 로직을 추가할 수 있어요.
-    console.log(`구매할 상품 수량: ${quantity}`);
-  };
   const handleBuyNow = () => {
     // 여기에서는 구매를 진행하기 위한 로직을 추가할 수 있어요.
     console.log(`구매할 상품 수량: ${quantity}`);
@@ -50,7 +50,19 @@ export const Detail = () => {
             alt={product.name}
           />
         </div>
-        <div className="w-full lg:w-1/2 border-t-2 border-slate-900 pt-4 text-left">
+        <div className="w-full lg:w-1/2 border-t-2 border-slate-900 text-left">
+          <div className="flex gap-1 pt-4 pb-2">
+            <Button size="badge" onClick={() => moveSeriesList(product.series)}>
+              {addSpaceSeriesTitle(product.series)}
+            </Button>
+            <Button
+              size="badge"
+              variant="indigo"
+              onClick={() => moveCategoryList(product.category)}
+            >
+              {addSpaceSeriesTitle(product.category)}
+            </Button>
+          </div>
           <div className="font-medium text-xl">{product.name}</div>
           <table className="w-[100%]">
             <colgroup>
@@ -101,12 +113,13 @@ export const Detail = () => {
             </div>
           )}
           <div className="py-4 flex">
-            <Button
-              className="w-1/2 text-lg rounded-none"
-              onClick={handleGoCart}
-            >
-              장바구니
-            </Button>
+            {product.quantity === 0 ? (
+              <Button className="w-full text-lg rounded-none" disabled>
+                품절
+              </Button>
+            ) : (
+              <CartButton productUID="product.uid" productQuantity={quantity} />
+            )}
             <Button
               className="w-1/2 text-lg bg-white hover:bg-slate-100 border text-slate-900 rounded-none"
               onClick={handleBuyNow}

@@ -15,7 +15,11 @@ export const IconButton = ({
   onClick,
 }: IconButtonProps) => {
   return (
-    <Button className={`flex items-center ${className}`} onClick={onClick}>
+    <Button
+      size={label ? "default" : "icon"}
+      className={className}
+      onClick={onClick}
+    >
       <Icon type={iconType} />
       {label && <div className="pl-1">{label}</div>}
     </Button>
