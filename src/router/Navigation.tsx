@@ -37,7 +37,7 @@ export const Navigation = () => {
       ))}
       {/* 시리즈 별 네비 */}
       <div
-        className={`relative nav-item cursor-pointer ${
+        className={`z-50 relative nav-item cursor-pointer ${
           isSeriesPage
             ? "nav-item-active border-b-2 border-slate-900 font-bold"
             : ""
@@ -73,7 +73,7 @@ export const Navigation = () => {
           }
           to={`/category/${key}`}
         >
-          {key === "OfficeSupplies" ? "OFFICE ITEMS" : key.toUpperCase()}
+          {addSpaceSeriesTitle(key).toUpperCase()}
         </NavLink>
       ))}
     </div>

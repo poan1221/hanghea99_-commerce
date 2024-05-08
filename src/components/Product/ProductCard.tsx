@@ -20,7 +20,7 @@ export const ProductCard = (props: ProductCardProps) => {
         })
       }
     >
-      <div className="imgBoxWrap relative">
+      <div className="imgBoxWrap relative z-20">
         {data.quantity === 0 ? (
           <div className="absolute left-4 top-4 z-20">
             <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">

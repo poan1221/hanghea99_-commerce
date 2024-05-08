@@ -31,7 +31,7 @@ type OptionMap = { [key: string]: string };
 export const CATEGORIES: OptionMap = {
   Clothes: "의류",
   Accessories: "악세사리",
-  OfficeSupplies: "문구",
+  OfficeItems: "문구",
   PhotoCard: "포토카드",
   Ect: "기타",
 } as const;

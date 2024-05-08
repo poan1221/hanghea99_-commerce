@@ -12,14 +12,6 @@ export const ProductSelectedList = () => {
   const selectedType = useParams().id;
   const { ref, inView } = useInView();
 
-  const getTitle = (selectedType: string) => {
-    if (selectedType === "OfficeSupplies") {
-      return "Office Items";
-    } else {
-      return addSpaceSeriesTitle(selectedType);
-    }
-  };
-
   const {
     data,
     isLoading,
@@ -43,7 +35,10 @@ export const ProductSelectedList = () => {
 
   return (
     <section className="container productsWrap max-w-4xl mt-11 mx-auto">
-      <PageTitle title={getTitle(selectedType as string)} alignLeft />
+      <PageTitle
+        title={addSpaceSeriesTitle(selectedType as string)}
+        alignLeft
+      />
       {isLoading ? (
         <ProductCardSkelton productsPerRow={4} />
       ) : (

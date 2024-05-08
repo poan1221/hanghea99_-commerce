@@ -64,6 +64,11 @@ export const useNavigate = () => {
       state,
     });
   };
+  const moveSeriesList = (id: string, { state }: NavigateProps = {}) => {
+    return navigate(Parser.dynamicRoute(ROUTES.SERIESLIST.PATH, id), {
+      state,
+    });
+  };
 
   return {
     moveBack,
@@ -77,6 +82,7 @@ export const useNavigate = () => {
     moveAddProduct,
     moveEditProduct,
     moveCategoryList,
+    moveSeriesList,
     locationState,
   };
 };
