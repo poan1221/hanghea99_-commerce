@@ -29,7 +29,7 @@ export const Main = () => {
 
   const products = data?.pages.flatMap((page) => page.products) || [];
 
-  console.log(products);
+  // console.log(products);
 
   return (
     <>

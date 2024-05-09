@@ -186,12 +186,14 @@ export const toggleWishProduct = async (userId: string, productId: string) => {
 
     if (Wishesnap.exists()) {
       transaction.delete(wishRef);
+      alert("위시리스트에서 삭제 되었습니다.");
     } else {
       transaction.set(wishRef, {
         userId,
         productId,
         wishedAt: new Date(),
       });
+      alert("위시리스트에 추가 되었습니다.");
     }
   });
 };

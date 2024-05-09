@@ -118,7 +118,7 @@ export const Detail = () => {
                 품절
               </Button>
             ) : (
-              <CartButton productUID="product.uid" productQuantity={quantity} />
+              <CartButton productUID={product.uid} productQuantity={quantity} />
             )}
             <Button
               className="w-1/2 text-lg bg-white hover:bg-slate-100 border text-slate-900 rounded-none"

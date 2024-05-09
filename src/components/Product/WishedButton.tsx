@@ -29,7 +29,6 @@ export const WishedButton = ({ productUID }: WishButtonProps) => {
   const toggleWishMutation = useMutation({
     mutationFn: () => toggleWishProduct(user!.uid as string, productUID),
     onSuccess: () => {
-      alert("위시리스트에 추가되었습니다.");
       setIsWished((prev) => !prev);
     },
     onError: (error) => {
@@ -38,13 +37,17 @@ export const WishedButton = ({ productUID }: WishButtonProps) => {
   });
 
   const handleWish = (event: React.MouseEvent) => {
+    const confirmText = isWished
+      ? "이 상품을 위시리스트에서 삭제하시겠습니까?"
+      : "이 상품을 위시리스트에 담으시겠습니까?";
+
     event.stopPropagation();
     if (!user) {
       alert("로그인이 필요합니다.");
       moveLogin();
       return;
     }
-    if (window.confirm("이 상품을 위시리스트에 담으시겠습니까?")) {
+    if (window.confirm(confirmText)) {
       toggleWishMutation.mutate();
     }
   };

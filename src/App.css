@@ -32,6 +32,9 @@
   margin-top: 1rem;
   border-top: 1px solid #eaeaea;
 }
+.productsWrap .poductTableRow + .poductTableRow {
+  border-top: 1px solid #eaeaea;
+}
 
 @keyframes logo-spin {
   from {
