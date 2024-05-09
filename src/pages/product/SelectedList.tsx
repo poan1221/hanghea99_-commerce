@@ -1,12 +1,11 @@
 import { useGetSelectedProducts } from "@/api/productQueries";
 import ErrorBox from "@/components/common/ErrorBox";
-import ProductCardSkelton from "@/components/Product/ProductCardSkelecton";
+import { ProductCardSkelton, ProductList } from "@/components/Product/card";
 import { PageTitle } from "@/components/common/PageTItle";
 import { addSpaceSeriesTitle } from "@/utils/addSpaceSeriesTitle";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useParams } from "react-router-dom";
-import { ProductList } from ".";
 
 export const ProductSelectedList = () => {
   const selectedType = useParams().id;

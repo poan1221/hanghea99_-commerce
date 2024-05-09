@@ -1,5 +1,5 @@
 import { IProductInfo } from "@/types/product";
-import { WishedButton } from "./WishedButton";
+import { WishedButton } from "../WishedButton";
 import { useNavigate } from "@/hook/useNavigate";
 
 interface ProductCardProps {

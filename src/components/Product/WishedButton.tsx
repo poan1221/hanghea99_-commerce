@@ -1,4 +1,4 @@
-import { getUserWishes, toggleWishProduct } from "@/hook/useProductServies";
+import { getIsWishes, toggleWishProduct } from "@/hook/useProductServies";
 import { useUserStore } from "@/store/useUserStore";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ export const WishedButton = ({ productUID }: WishButtonProps) => {
 
   const { data: wishProducts, isSuccess } = useQuery({
     queryKey: ["userWishes", user?.uid],
-    queryFn: () => getUserWishes(user?.uid as string),
+    queryFn: () => getIsWishes(user?.uid as string),
     enabled: !!user?.uid,
   });
 

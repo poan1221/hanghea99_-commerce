@@ -61,3 +61,8 @@ export interface WishProduct {
   userId: string;
   wishedAt: number;
 }
+
+export interface userActionProduct extends IProductInfo {
+  productQuantity?: number;
+  isChecked?: boolean;
+}

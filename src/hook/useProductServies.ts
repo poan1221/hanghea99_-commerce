@@ -14,6 +14,7 @@ import {
   QueryDocumentSnapshot,
   DocumentData,
   runTransaction,
+  getDoc,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
@@ -26,6 +27,7 @@ import {
   ProductsResponse,
   Series,
   WishProduct,
+  userActionProduct,
 } from "@/types/product";
 
 export const UseAddProduct = () => {
@@ -194,9 +196,49 @@ export const toggleWishProduct = async (userId: string, productId: string) => {
   });
 };
 
-// 위시리스트 가져오기
-export const getUserWishes = async (userId: string): Promise<WishProduct[]> => {
+// 위시 상태 가져오기
+export const getIsWishes = async (userId: string): Promise<WishProduct[]> => {
   const q = query(collection(db, "userWishes"), where("userId", "==", userId));
   const snapshot = await getDocs(q);
   return snapshot.docs.map((doc) => doc.data() as WishProduct);
+};
+
+/**
+ * 사용자가 좋아요한 상품 목록을 무한스크롤로 가져옵니다.
+ * @param {QueryDocumentSnapshot<DocumentData> | null} pageParam - 무한 스크롤 처리를 위한 페이지 파라미터입니다.
+ * @param {string} userId - 사용자 ID입니다.
+ * @returns {Promise<ProductsResponse>} - 검색된 상품 목록과 다음 커서 위치를 반환합니다.
+ */
+export const getUserWishes = async (
+  pageParam: QueryDocumentSnapshot<DocumentData> | null,
+  userId: string
+) => {
+  const userWishesRef = collection(db, "userWishes");
+  let q = query(
+    userWishesRef,
+    where("userId", "==", userId),
+    orderBy("wishedAt", "desc"),
+    limit(10)
+  );
+
+  if (pageParam) {
+    q = query(q, startAfter(pageParam));
+  }
+
+  const snapshot = await getDocs(q);
+  const lastVisible = snapshot.docs[snapshot.docs.length - 1];
+
+  const productIds = snapshot.docs.map((doc) => doc.data().productId);
+  const products = await Promise.all(
+    productIds.map(async (productId) => {
+      const productRef = doc(db, "products", productId);
+      const productSnap = await getDoc(productRef);
+      return { isChecked: false, ...(productSnap.data() as userActionProduct) };
+    })
+  );
+
+  return {
+    products: products,
+    nextPage: lastVisible,
+  };
 };

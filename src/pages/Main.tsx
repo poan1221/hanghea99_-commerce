@@ -1,10 +1,9 @@
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import { useGetAllProducts } from "@/api/productQueries";
-import { ProductList } from "@/pages/product";
 import ErrorBox from "@/components/common/ErrorBox";
 import { PageTitle } from "@/components/common/PageTItle";
-import ProductCardSkelton from "@/components/Product/ProductCardSkelecton";
+import { ProductCardSkelton, ProductList } from "@/components/Product/card";
 
 export const Main = () => {
   const { ref, inView } = useInView();
@@ -29,6 +28,8 @@ export const Main = () => {
   }
 
   const products = data?.pages.flatMap((page) => page.products) || [];
+
+  console.log(products);
 
   return (
     <>

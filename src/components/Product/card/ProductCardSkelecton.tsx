@@ -4,7 +4,7 @@ interface Props {
   productsPerRow: number;
 }
 
-const ProductCardSkelton = ({ productsPerRow }: Props) => {
+export const ProductCardSkelton = ({ productsPerRow }: Props) => {
   return (
     <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
       {Array.from({ length: productsPerRow }).map((_, i) => (
@@ -19,5 +19,3 @@ const ProductCardSkelton = ({ productsPerRow }: Props) => {
     </div>
   );
 };
-
-export default ProductCardSkelton;
