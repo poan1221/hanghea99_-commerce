@@ -8,6 +8,8 @@ import { toggleWishProduct } from "@/hook/useProductServies";
 import { deleteCartProduct } from "@/hook/useOrderServies";
 import { Badge } from "@/components/ui/badge";
 import { addSpaceSeriesTitle } from "@/utils/addSpaceSeriesTitle";
+import { useCartQuantity } from "@/hook/useQuantity";
+import { QuantityButton } from "../QuantityButton";
 
 interface ProductTableRowProps {
   data: userActionProduct;
@@ -47,6 +49,22 @@ export const ProductTableRow = ({
     }
   };
 
+  const isCartItemButton = (isCartItem: boolean | undefined) => {
+    if (isCartItem) {
+      const { quantity, incrementQuantity, decrementQuantity } =
+        useCartQuantity(1, [user!.uid, data.uid]);
+
+      return (
+        <QuantityButton
+          quantity={quantity}
+          incrementQuantity={incrementQuantity}
+          decrementQuantity={decrementQuantity}
+        />
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="poductTableRow w-100 flex justify-between col-span-full pt-3 pb-2">
       <div className="IProductInfo flex">
@@ -82,7 +100,7 @@ export const ProductTableRow = ({
         </div>
       </div>
       <div className="btnBox flex gap-4">
-        {isCartItem && <Button>{data.productQuantity}</Button>}
+        {isCartItemButton(isCartItem)}
         <Button
           variant="ghost"
           className="font-normal text-lg text-slate-500"

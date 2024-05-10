@@ -1,9 +1,10 @@
 import { CartButton } from "@/components/Product/CartButton";
+import { QuantityButton } from "@/components/Product/QuantityButton";
 import { IconButton } from "@/components/common/IconButton";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "@/hook/useNavigate";
+import { useQuantity } from "@/hook/useQuantity";
 import { addSpaceSeriesTitle } from "@/utils/addSpaceSeriesTitle";
-import { useState } from "react";
 
 export const Detail = () => {
   const {
@@ -13,16 +14,9 @@ export const Detail = () => {
     moveCategoryList,
   } = useNavigate();
 
-  const [quantity, setQuantity] = useState(0);
+  const { quantity, incrementQuantity, decrementQuantity } = useQuantity(1);
+
   const totalPrice = product.price * quantity;
-
-  const decrement = () => {
-    setQuantity((prevQuantity) => (prevQuantity === 0 ? 0 : prevQuantity - 1));
-  };
-
-  const increment = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
-  };
 
   const handleBuyNow = () => {
     // 여기에서는 구매를 진행하기 위한 로직을 추가할 수 있어요.
@@ -85,21 +79,11 @@ export const Detail = () => {
           <div className="py-4 border-t mt-4">
             <div className="flex items-center">
               <div className="w-[100px]">구매 수량</div>
-              <div className="flex items-center">
-                <Button
-                  className="w-8 h-8 border border-gray-300 bg-white text-slate-900 hover:bg-slate-50 font-bold"
-                  onClick={decrement}
-                >
-                  -
-                </Button>
-                <span className="inline-block w-8 text-center">{quantity}</span>
-                <Button
-                  className="w-8 h-8 border border-gray-300 bg-white text-slate-900 hover:bg-slate-50"
-                  onClick={increment}
-                >
-                  +
-                </Button>
-              </div>
+              <QuantityButton
+                quantity={quantity}
+                incrementQuantity={incrementQuantity}
+                decrementQuantity={decrementQuantity}
+              />
             </div>
           </div>
           {totalPrice > 0 && (
