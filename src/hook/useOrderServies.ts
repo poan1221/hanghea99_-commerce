@@ -96,6 +96,8 @@ export const updateCartQuantity = async (
       });
     }
   });
+
+  return productQuantity;
 };
 
 /**

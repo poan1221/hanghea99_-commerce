@@ -23,22 +23,11 @@ export const useQuantity = (initialQuantity: number) => {
 export const useCartQuantity = (initialQuantity: number, ids: string[]) => {
   const [quantity, setQuantity] = useState(initialQuantity);
 
-  const updatePlusCartMutation = useMutation({
-    mutationFn: () => updateCartQuantity(ids[0], ids[1], quantity + 1),
-    onSuccess: () => {
-      setQuantity(quantity + 1);
-      //   alert("장바구니에 추가되었습니다.");
-    },
-    onError: (error) => {
-      console.error("오류가 발생하였습니다.:", error);
-    },
-  });
-
-  const updateMinusCartMutation = useMutation({
-    mutationFn: () => updateCartQuantity(ids[0], ids[1], quantity - 1),
-    onSuccess: () => {
-      setQuantity(quantity - 1);
-      //   alert("장바구니에 추가되었습니다.");
+  const updateCartMutation = useMutation({
+    mutationFn: (newQuantity: number) =>
+      updateCartQuantity(ids[0], ids[1], newQuantity),
+    onSuccess: (data) => {
+      setQuantity(data);
     },
     onError: (error) => {
       console.error("오류가 발생하였습니다.:", error);
@@ -46,15 +35,17 @@ export const useCartQuantity = (initialQuantity: number, ids: string[]) => {
   });
 
   const incrementQuantity = () => {
+    const newQuantity = quantity + 1;
     if (window.confirm("장바구니 수량을 변경하시겠니까?")) {
-      updatePlusCartMutation.mutate();
+      updateCartMutation.mutate(newQuantity);
     }
   };
 
   const decrementQuantity = () => {
     if (quantity > 1) {
+      const newQuantity = quantity - 1;
       if (window.confirm("장바구니 수량을 변경하시겠니까?")) {
-        updateMinusCartMutation.mutate();
+        updateCartMutation.mutate(newQuantity);
       }
     } else {
       alert("최소 구매 수량은 1개입니다.");

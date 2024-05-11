@@ -1,8 +1,9 @@
 import { addCartProduct } from "@/hook/useOrderServies";
 import { useUserStore } from "@/store/useUserStore";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { useCheckCanOrder } from "@/hook/useCheckCanOrder";
+import { useAlertDialogStore } from "@/store/useAlertDialogStore";
 
 interface CartButtonProps {
   productUID: string;
@@ -14,12 +15,18 @@ export const CartButton = ({
   productQuantity,
 }: CartButtonProps) => {
   const user = useUserStore((state) => state.user);
+  const queryClient = useQueryClient();
+  const { openAlert } = useAlertDialogStore();
 
   const addCartMutation = useMutation({
     mutationFn: () =>
       addCartProduct(user!.uid as string, productUID, productQuantity),
     onSuccess: () => {
-      alert("장바구니에 추가되었습니다.");
+      // alert("장바구니에 추가되었습니다.");
+      openAlert("장바구니에 추가되었습니다.", "", "navigate");
+      queryClient.invalidateQueries({
+        queryKey: ["userCartList", user!.uid],
+      });
     },
     onError: (error) => {
       console.error("오류가 발생하였습니다.:", error);

@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { addSpaceSeriesTitle } from "@/utils/addSpaceSeriesTitle";
 import { useCartQuantity } from "@/hook/useQuantity";
 import { QuantityButton } from "../QuantityButton";
+import { useEffect } from "react";
 
 interface ProductTableRowProps {
   data: userActionProduct;
@@ -49,10 +50,14 @@ export const ProductTableRow = ({
     }
   };
 
+  // 데이터는 반영되었지만, 상품 수량은 업데이트되지 않음
+  // data.productQuantity 업데이트를 위해 여기서도 useState, useEffect 사용해야? 이게 맞나..?
+  console.log(" ----", data);
+
   const isCartItemButton = (isCartItem: boolean | undefined) => {
     if (isCartItem) {
       const { quantity, incrementQuantity, decrementQuantity } =
-        useCartQuantity(1, [user!.uid, data.uid]);
+        useCartQuantity(data.productQuantity as number, [user!.uid, data.uid]);
 
       return (
         <QuantityButton
