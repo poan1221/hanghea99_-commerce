@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { addSpaceSeriesTitle } from "@/utils/addSpaceSeriesTitle";
 import { useCartQuantity } from "@/hook/useQuantity";
 import { QuantityButton } from "../QuantityButton";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface ProductTableRowProps {
   data: userActionProduct;
@@ -51,20 +51,33 @@ export const ProductTableRow = ({
   };
 
   // 데이터는 반영되었지만, 상품 수량은 업데이트되지 않음
-  // data.productQuantity 업데이트를 위해 여기서도 useState, useEffect 사용해야? 이게 맞나..?
-  console.log(" ----", data);
+  // data.productQuantity 업데이트를 위해 여기서도 useState, useEffect 사용해야? 이게 맞나..? -> 근데 반영 안됨
+  // 어디서부터 이해를 못한 건지?
+  // console.log(" ----", data);
+  // 왜 안되용
+  const [initQuantity, setInitQuantity] = useState(data.productQuantity);
+  useEffect(() => {
+    setInitQuantity(data.productQuantity);
+  }, [data]);
 
   const isCartItemButton = (isCartItem: boolean | undefined) => {
     if (isCartItem) {
       const { quantity, incrementQuantity, decrementQuantity } =
-        useCartQuantity(data.productQuantity as number, [user!.uid, data.uid]);
+        useCartQuantity(initQuantity as number, [user!.uid, data.uid]);
 
       return (
-        <QuantityButton
-          quantity={quantity}
-          incrementQuantity={incrementQuantity}
-          decrementQuantity={decrementQuantity}
-        />
+        <div className="flex flex-col items-center justify-center">
+          <QuantityButton
+            quantity={quantity}
+            incrementQuantity={incrementQuantity}
+            decrementQuantity={decrementQuantity}
+          />
+          {initQuantity && (
+            <div className="text-lg text-slate-900 font-bold pt-2">
+              ₩ {Number(data.price * initQuantity).toLocaleString("ko-KR")}
+            </div>
+          )}
+        </div>
       );
     }
     return null;
@@ -80,7 +93,7 @@ export const ProductTableRow = ({
           />
         </div>
         <div
-          className="w-[105px] h-[105px] mr-3 cursor-pointer"
+          className="w-[105px] h-[105px] mr-4 cursor-pointer"
           onClick={() =>
             moveDetail(data.uid, {
               state: {
@@ -91,7 +104,7 @@ export const ProductTableRow = ({
         >
           <img className="size-full object-cover" src={data.image} />
         </div>
-        <div className="flex flex-col gap-1 text-left">
+        <div className="flex flex-col gap-1 text-left justify-center">
           <div className="flex gap-1">
             <Badge>{addSpaceSeriesTitle(data.series)}</Badge>
             <Badge variant="indigo">{addSpaceSeriesTitle(data.category)}</Badge>
@@ -99,7 +112,7 @@ export const ProductTableRow = ({
           <div className="text-slate-900 text-base font-medium">
             {data.name}
           </div>
-          <div className="text-slate-900 text-base font-bold">
+          <div className="text-slate-900 text-base">
             ₩ {Number(data.price).toLocaleString("ko-KR")}
           </div>
         </div>

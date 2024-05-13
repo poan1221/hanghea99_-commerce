@@ -120,29 +120,19 @@ export const deleteCartProduct = async (userId: string, productId: string) => {
 };
 
 /**
- * 장바구니 상품 목록을 무한스크롤로 가져옵니다.
- * @param {QueryDocumentSnapshot<DocumentData> | null} pageParam - 무한 스크롤 처리를 위한 페이지 파라미터입니다.
+ * 장바구니 상품 목록 전체를 가져옵니다.
  * @param {string} userId - 사용자 ID입니다.
- * @returns {Promise<ProductsResponse>} - 검색된 상품 목록과 다음 커서 위치를 반환합니다.
+ * @returns {Promise<userActionProduct>} - 장바구니 상품 목록
  */
-export const getUserCartProduct = async (
-  pageParam: QueryDocumentSnapshot<DocumentData> | null,
-  userId: string
-) => {
+export const getUserCartProduct = async (userId: string) => {
   const userCartRef = collection(db, "userCarts");
   let q = query(
     userCartRef,
     where("userId", "==", userId),
-    orderBy("cartedAt", "desc"),
-    limit(10)
+    orderBy("cartedAt", "desc")
   );
 
-  if (pageParam) {
-    q = query(q, startAfter(pageParam));
-  }
-
   const snapshot = await getDocs(q);
-  const lastVisible = snapshot.docs[snapshot.docs.length - 1];
 
   const productQuantities = snapshot.docs.map(
     (doc) => doc.data().productQuantity
@@ -160,8 +150,5 @@ export const getUserCartProduct = async (
     })
   );
 
-  return {
-    products: products,
-    nextPage: lastVisible,
-  };
+  return products;
 };

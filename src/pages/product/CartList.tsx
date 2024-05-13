@@ -1,36 +1,27 @@
-import { useGetCartProducts } from "@/api/productQueries";
 import ErrorBox from "@/components/common/ErrorBox";
-import { useEffect } from "react";
-import { useInView } from "react-intersection-observer";
 import { useUserStore } from "@/store/useUserStore";
 import { PageTitle } from "@/components/common/PageTItle";
 import {
   ProductTableList,
   ProductTableSkelton,
 } from "@/components/Product/table";
+import { useQuery } from "@tanstack/react-query";
+import { getUserCartProduct } from "@/hook/useOrderServies";
 
 export const CartList = () => {
   const user = useUserStore((state) => state.user);
-  const { ref, inView } = useInView();
 
   const {
-    data,
+    data: products,
     isLoading,
     isError,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useGetCartProducts(user?.uid as string);
-
-  useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, fetchNextPage, isFetchingNextPage]);
+  } = useQuery({
+    queryKey: ["userCartList", user?.uid],
+    queryFn: () => getUserCartProduct(user?.uid as string),
+    enabled: !!user?.uid,
+  });
 
   if (isError) return <ErrorBox />;
-
-  const products = data?.pages.flatMap((page) => page.products) || [];
 
   return (
     <section className="container productsWrap max-w-4xl mt-11 mx-auto">
@@ -38,11 +29,7 @@ export const CartList = () => {
       {isLoading ? (
         <ProductTableSkelton productsPerRow={4} />
       ) : (
-        <>
-          <ProductTableList products={products} isCart />
-          <div ref={hasNextPage ? ref : undefined} />
-          {isFetchingNextPage && <p>Loading more...</p>}
-        </>
+        <>{products && <ProductTableList products={products} isCart />}</>
       )}
     </section>
   );
