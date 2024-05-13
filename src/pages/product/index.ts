@@ -1,4 +1,4 @@
 export * from "./Detail";
 export * from "./SelectedList";
 export * from "./WishedList";
-export * from "./CartList";
+export * from "../Cart/Cart";

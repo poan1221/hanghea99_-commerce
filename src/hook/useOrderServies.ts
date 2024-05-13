@@ -1,5 +1,5 @@
 import { db } from "@/firebase";
-import { userActionProduct } from "@/types/product";
+import { UserActionProduct } from "@/types/product";
 import {
   DocumentData,
   QueryDocumentSnapshot,
@@ -122,7 +122,7 @@ export const deleteCartProduct = async (userId: string, productId: string) => {
 /**
  * 장바구니 상품 목록 전체를 가져옵니다.
  * @param {string} userId - 사용자 ID입니다.
- * @returns {Promise<userActionProduct>} - 장바구니 상품 목록
+ * @returns {Promise<UserActionProduct>} - 장바구니 상품 목록
  */
 export const getUserCartProduct = async (userId: string) => {
   const userCartRef = collection(db, "userCarts");
@@ -145,7 +145,7 @@ export const getUserCartProduct = async (userId: string) => {
       return {
         isChecked: false,
         productQuantity: productQuantities[index],
-        ...(productSnap.data() as userActionProduct),
+        ...(productSnap.data() as UserActionProduct),
       };
     })
   );

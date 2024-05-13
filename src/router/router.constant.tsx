@@ -1,10 +1,5 @@
 import { Routes } from "./router.type";
-import {
-  Detail,
-  ProductSelectedList,
-  CartList,
-  WishList,
-} from "../pages/product";
+import { Detail, ProductSelectedList, Cart, WishList } from "../pages/product";
 import { Main, NotFound, Login, SignUp } from "../pages";
 import { MyList, AddProduct, EditProduct } from "../pages/admin";
 
@@ -36,7 +31,7 @@ export const ROUTES: Routes = {
   CART: {
     PATH: "/Mycart",
     isAuth: true,
-    COMPONENT: CartList,
+    COMPONENT: Cart,
   },
   WISHLIST: {
     PATH: "/wishList",

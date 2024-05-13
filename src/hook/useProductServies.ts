@@ -27,7 +27,7 @@ import {
   ProductsResponse,
   Series,
   WishProduct,
-  userActionProduct,
+  UserActionProduct,
 } from "@/types/product";
 
 export const UseAddProduct = () => {
@@ -235,7 +235,7 @@ export const getUserWishes = async (
     productIds.map(async (productId) => {
       const productRef = doc(db, "products", productId);
       const productSnap = await getDoc(productRef);
-      return { isChecked: false, ...(productSnap.data() as userActionProduct) };
+      return { isChecked: false, ...(productSnap.data() as UserActionProduct) };
     })
   );
 

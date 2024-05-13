@@ -23,10 +23,12 @@ export const CartButton = ({
       addCartProduct(user!.uid as string, productUID, productQuantity),
     onSuccess: () => {
       // alert("장바구니에 추가되었습니다.");
-      openAlert("장바구니에 추가되었습니다.", "", "navigate");
+
       queryClient.invalidateQueries({
         queryKey: ["userCartList", user!.uid],
       });
+      console.log("invalidateQueries");
+      openAlert("장바구니에 추가되었습니다.", "", "navigate");
     },
     onError: (error) => {
       console.error("오류가 발생하였습니다.:", error);

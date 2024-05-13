@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateCartQuantity } from "./useOrderServies";
 import { useMutation } from "@tanstack/react-query";
 
@@ -22,6 +22,10 @@ export const useQuantity = (initialQuantity: number) => {
 
 export const useCartQuantity = (initialQuantity: number, ids: string[]) => {
   const [quantity, setQuantity] = useState(initialQuantity);
+
+  useEffect(() => {
+    setQuantity(initialQuantity);
+  }, [initialQuantity]);
 
   const updateCartMutation = useMutation({
     mutationFn: (newQuantity: number) =>

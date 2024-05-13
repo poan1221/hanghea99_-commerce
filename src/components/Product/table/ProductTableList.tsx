@@ -1,4 +1,4 @@
-import { userActionProduct } from "@/types/product";
+import { UserActionProduct } from "@/types/product";
 import { ProductTableRow } from "@/components/Product/table/ProductTableRow";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import { deleteCartProduct } from "@/hook/useOrderServies";
 import { toggleWishProduct } from "@/hook/useProductServies";
 
 interface ProductListProps {
-  products: userActionProduct[];
+  products: UserActionProduct[];
   isCart?: boolean;
 }
 
@@ -101,7 +101,7 @@ export const ProductTableList = ({
             </Button>
           </div>
           <div className="border-t-2 border-slate-900">
-            {products.map((product) => (
+            {data.map((product) => (
               <ProductTableRow
                 isCartItem={isCart}
                 data={product}
