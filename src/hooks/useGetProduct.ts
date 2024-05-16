@@ -1,7 +1,9 @@
-import { getProducts, getUserWishes } from "@/hook/useProductServies";
+import { getProducts, getUserWishes } from "@/hooks/useProductServies";
+import { useUserStore } from "@/store/useUserStore";
 import { Category, ProductsResponse, Series } from "@/types/product";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+import { getUserCartProduct } from "./useOrderServies";
 
 // 전체 상품 목록 불러오기
 export const useGetAllProducts = () => {
@@ -49,4 +51,20 @@ export const useGetWishedProducts = (userId: string) => {
     refetchOnWindowFocus: false,
     initialPageParam: null, // 초기 페이지 파라미터 설정, 필요에 따라 조정 가능
   });
+};
+
+// 카드 상품 불러오기
+export const useUserCartProduct = () => {
+  const user = useUserStore((state) => state.user);
+  const {
+    data: products,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["userCartList", user?.uid],
+    queryFn: () => getUserCartProduct(user?.uid as string),
+    enabled: !!user?.uid,
+  });
+
+  return { products, isLoading, isError };
 };

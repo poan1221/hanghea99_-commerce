@@ -1,4 +1,4 @@
-import { useGetAllProducts } from "@/api/productQueries";
+import { useGetAllProducts } from "@/hooks/useGetProduct";
 import ErrorBox from "@/components/common/ErrorBox";
 import { PromotionBanner } from "./PromotionBanner";
 import { PageTitle } from "@/components/common/PageTItle";

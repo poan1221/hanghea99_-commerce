@@ -1,4 +1,4 @@
-import { useGetSelectedProducts } from "@/api/productQueries";
+import { useGetSelectedProducts } from "@/hooks/useGetProduct";
 import ErrorBox from "@/components/common/ErrorBox";
 import { ProductCardSkelton, ProductList } from "@/components/Product/card";
 import { PageTitle } from "@/components/common/PageTItle";

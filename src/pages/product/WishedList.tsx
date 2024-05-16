@@ -1,13 +1,11 @@
-import { useGetWishedProducts } from "@/api/productQueries";
+import { useGetWishedProducts } from "@/hooks/useGetProduct";
 import ErrorBox from "@/components/common/ErrorBox";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useUserStore } from "@/store/useUserStore";
 import { PageTitle } from "@/components/common/PageTItle";
-import {
-  ProductTableList,
-  ProductTableSkelton,
-} from "@/components/Product/table";
+import { ProductTableSkelton } from "@/components/Product/table";
+import { ProductWishList } from "@/components/Product/wish/ProductWishList";
 
 export const WishList = () => {
   const user = useUserStore((state) => state.user);
@@ -28,9 +26,9 @@ export const WishList = () => {
     }
   }, [inView, hasNextPage, fetchNextPage, isFetchingNextPage]);
 
-  if (isError) return <ErrorBox />;
-
   const products = data?.pages.flatMap((page) => page.products) || [];
+
+  if (isError) return <ErrorBox />;
 
   return (
     <section className="container productsWrap max-w-4xl mt-11 mx-auto">
@@ -39,7 +37,7 @@ export const WishList = () => {
         <ProductTableSkelton productsPerRow={4} />
       ) : (
         <>
-          <ProductTableList products={products} />
+          <ProductWishList products={products} />
           <div ref={hasNextPage ? ref : undefined} />
           {isFetchingNextPage && <p>Loading more...</p>}
         </>

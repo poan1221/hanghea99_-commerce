@@ -1,5 +1,5 @@
 import { useUserStore } from "@/store/useUserStore";
-import { useNavigate } from "../hook/useNavigate";
+import { useNavigate } from "../hooks/useNavigate";
 import { Navigation } from "../router/Navigation";
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";

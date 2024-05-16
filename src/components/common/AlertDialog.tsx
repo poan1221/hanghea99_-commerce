@@ -7,7 +7,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useNavigate } from "@/hook/useNavigate";
+import { useNavigate } from "@/hooks/useNavigate";
 
 // 글로벌로 사용하는 alert dialog - store를 통해 사용
 import { useAlertDialogStore } from "@/store/useAlertDialogStore";

@@ -1,8 +1,8 @@
-import { addCartProduct } from "@/hook/useOrderServies";
+import { addCartProduct } from "@/hooks/useOrderServies";
 import { useUserStore } from "@/store/useUserStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { useCheckCanOrder } from "@/hook/useCheckCanOrder";
+import { useCheckCanOrder } from "@/hooks/useCheckCanOrder";
 import { useAlertDialogStore } from "@/store/useAlertDialogStore";
 
 interface CartButtonProps {
@@ -23,11 +23,9 @@ export const CartButton = ({
       addCartProduct(user!.uid as string, productUID, productQuantity),
     onSuccess: () => {
       // alert("장바구니에 추가되었습니다.");
-
       queryClient.invalidateQueries({
         queryKey: ["userCartList", user!.uid],
       });
-      console.log("invalidateQueries");
       openAlert("장바구니에 추가되었습니다.", "", "navigate");
     },
     onError: (error) => {

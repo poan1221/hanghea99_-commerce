@@ -3,12 +3,12 @@ import Spinner from "@/components/common/Spinner";
 import { Button } from "@/components/ui/button";
 import { ProductListItem } from "@/components/Product/admin/ProductListItem";
 
-import { useNavigate } from "@/hook/useNavigate";
-import { deleteProduct } from "@/hook/useProductServies";
+import { useNavigate } from "@/hooks/useNavigate";
+import { deleteProduct } from "@/hooks/useProductServies";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
-import { useGetAllProducts } from "@/api/productQueries";
+import { useGetAllProducts } from "@/hooks/useGetProduct";
 
 export const MyList = () => {
   const { moveAddProduct, moveEditProduct } = useNavigate();

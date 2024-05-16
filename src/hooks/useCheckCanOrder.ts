@@ -1,4 +1,4 @@
-import { useNavigate } from "@/hook/useNavigate";
+import { useNavigate } from "@/hooks/useNavigate";
 import { IUserInfo } from "@/types/user";
 
 interface CheckProps {

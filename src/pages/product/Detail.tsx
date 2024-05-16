@@ -2,8 +2,8 @@ import { CartButton } from "@/components/Product/CartButton";
 import { QuantityButton } from "@/components/Product/QuantityButton";
 import { IconButton } from "@/components/common/IconButton";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "@/hook/useNavigate";
-import { useQuantity } from "@/hook/useQuantity";
+import { useNavigate } from "@/hooks/useNavigate";
+import { useQuantity } from "@/hooks/useQuantity";
 import { addSpaceSeriesTitle } from "@/utils/addSpaceSeriesTitle";
 
 export const Detail = () => {

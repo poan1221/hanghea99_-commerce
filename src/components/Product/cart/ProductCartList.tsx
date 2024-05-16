@@ -1,8 +1,8 @@
 import { ProductTableRow } from "@/components/Product/table/ProductTableRow";
 import { Button } from "@/components/ui/button";
-import { useUserCartProduct } from "@/hook/useUserCartProduct";
+import { useUserCartProduct } from "@/hooks/useGetProduct";
 import { TotalPrice } from "./TotalPrice";
-import { useCartProduct } from "@/hook/useCartProduct";
+import { useCartListProduct } from "@/hooks/useCartListProduct";
 
 export const ProductCartList = () => {
   const { products } = useUserCartProduct();
@@ -13,13 +13,13 @@ export const ProductCartList = () => {
 
   const {
     checkedProducts,
-    checkedProductIds,
-    handleAllClick,
     handleCheckbox,
+    handleAllClick,
+    checkedProductIds,
     handleCheckDelete,
     totalAmount,
     delieveryFee,
-  } = useCartProduct(products);
+  } = useCartListProduct(products);
 
   if (products.length === 0) {
     <div className="text-center">추가된 상품이 존재하지 않습니다.</div>;

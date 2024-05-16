@@ -1,7 +1,7 @@
 import { PageTitle } from "@/components/common/PageTItle";
 import { ProductForm } from "@/components/form/ProductForm";
-import { useNavigate } from "@/hook/useNavigate";
-import { UseEditProduct } from "@/hook/useProductServies";
+import { useNavigate } from "@/hooks/useNavigate";
+import { UseEditProduct } from "@/hooks/useProductServies";
 import { IProductInfo } from "@/types/product";
 
 export function EditProduct() {

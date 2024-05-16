@@ -1,7 +1,7 @@
 import { Routes } from "./router.type";
-import { Detail, ProductSelectedList, Cart, WishList } from "../pages/product";
-import { Main, NotFound, Login, SignUp } from "../pages";
-import { MyList, AddProduct, EditProduct } from "../pages/admin";
+import { Detail, ProductSelectedList, WishList } from "@/pages/product";
+import { Main, NotFound, Login, SignUp, Cart } from "@/pages";
+import { MyList, AddProduct, EditProduct } from "@/pages/admin";
 
 export const ROUTES: Routes = {
   HOME: {
@@ -11,13 +11,13 @@ export const ROUTES: Routes = {
   },
 
   LOGIN: {
-    PATH: "/Login",
+    PATH: "/login",
     isAuth: false,
     COMPONENT: Login,
   },
 
   SIGNUP: {
-    PATH: "/SignUp",
+    PATH: "/signUp",
     isAuth: false,
     COMPONENT: SignUp,
   },
@@ -29,7 +29,7 @@ export const ROUTES: Routes = {
   },
 
   CART: {
-    PATH: "/Mycart",
+    PATH: "/cart",
     isAuth: true,
     COMPONENT: Cart,
   },
@@ -40,7 +40,7 @@ export const ROUTES: Routes = {
   },
 
   MYLIST: {
-    PATH: "/mylist",
+    PATH: "/myList",
     isAuth: true,
     COMPONENT: MyList,
   },

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "@/hook/useNavigate";
+import { useNavigate } from "@/hooks/useNavigate";
 
 import errorImage from "@/assets/error.svg";
 

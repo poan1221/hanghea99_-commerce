@@ -1,15 +1,15 @@
 import { UserActionProduct } from "@/types/product";
-import { useNavigate } from "@/hook/useNavigate";
+import { useNavigate } from "@/hooks/useNavigate";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUserStore } from "@/store/useUserStore";
-import { toggleWishProduct } from "@/hook/useProductServies";
-import { deleteCartProduct } from "@/hook/useOrderServies";
+import { toggleWishProduct } from "@/hooks/useProductServies";
+import { deleteCartProduct } from "@/hooks/useOrderServies";
 import { Badge } from "@/components/ui/badge";
 import { addSpaceSeriesTitle } from "@/utils/addSpaceSeriesTitle";
-import { useCartQuantity } from "@/hook/useQuantity";
+import { useCartQuantity } from "@/hooks/useQuantity";
 import { QuantityButton } from "../QuantityButton";
+import { useDeleteSelectProduct } from "@/hooks/useDeleteSelectProduct";
 
 interface ProductTableRowProps {
   data: UserActionProduct;
@@ -26,32 +26,24 @@ export const ProductTableRow = ({
 }: ProductTableRowProps) => {
   const { moveDetail } = useNavigate();
   const user = useUserStore((state) => state.user);
-  const queryClient = useQueryClient();
   const { quantity, incrementQuantity, decrementQuantity } = useCartQuantity(
     data.productQuantity as number,
     [user!.uid, data.uid]
   );
 
-  const deletListMutation = useMutation({
-    mutationFn: () =>
+  const deleteListMutation = useDeleteSelectProduct({
+    mutationFn: (productUid: string) =>
       isCartItem
-        ? deleteCartProduct(user!.uid as string, data.uid)
+        ? deleteCartProduct(user!.uid as string, productUid)
         : toggleWishProduct(user!.uid as string, data.uid),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: isCartItem
-          ? ["userCartList", user!.uid]
-          : ["userWishesList", user!.uid],
-      });
-    },
-    onError: (error) => {
-      console.error("오류가 발생하였습니다.:", error);
-    },
+    queryKey: isCartItem
+      ? ["userCartList", user!.uid]
+      : ["userWishesList", user!.uid],
   });
 
   const handleDelete = async () => {
     if (window.confirm("이 상품을 리스트에서 삭제 하시겠습니까?")) {
-      deletListMutation.mutate();
+      deleteListMutation.mutate(data.uid);
     }
   };
 

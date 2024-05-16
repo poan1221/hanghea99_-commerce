@@ -32,7 +32,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import ImageInput from "./inputs/ImageInput";
-import { useNavigate } from "@/hook/useNavigate";
+import { useNavigate } from "@/hooks/useNavigate";
 
 interface ProductFormProps {
   productFormHandle: (data: IProductForm) => Promise<any>;

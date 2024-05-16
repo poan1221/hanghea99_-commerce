@@ -1,4 +1,4 @@
-import { useGetAllProducts } from "@/api/productQueries";
+import { useGetAllProducts } from "@/hooks/useGetProduct";
 import { ProductCard } from "@/components/Product/card/ProductCard";
 import { ProductCardSkelton } from "@/components/Product/card/ProductCardSkelecton";
 import { useEffect } from "react";

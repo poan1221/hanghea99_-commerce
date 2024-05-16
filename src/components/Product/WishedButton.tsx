@@ -1,9 +1,9 @@
-import { getIsWishes, toggleWishProduct } from "@/hook/useProductServies";
+import { getIsWishes, toggleWishProduct } from "@/hooks/useProductServies";
 import { useUserStore } from "@/store/useUserStore";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { IconButton } from "../common/IconButton";
-import { useNavigate } from "@/hook/useNavigate";
+import { useNavigate } from "@/hooks/useNavigate";
 
 interface WishButtonProps {
   productUID: string;
