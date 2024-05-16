@@ -1,5 +1,5 @@
 import { PageTitle } from "@/components/common/PageTItle";
-import { SignUpForm } from "@/components/form/SignUpForm";
+import { SignUpFormTypes } from "@/components/form/SignUpForm";
 import { useSignUp } from "@/hooks/useUserServices";
 
 export const SignUp = () => {

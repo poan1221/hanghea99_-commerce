@@ -1,5 +1,5 @@
 import { PageTitle } from "@/components/common/PageTItle";
-import { ProductForm } from "@/components/form/ProductForm";
+import { ProductFormTypes } from "@/components/form/ProductForm";
 import { useNavigate } from "@/hooks/useNavigate";
 import { UseEditProduct } from "@/hooks/useProductServies";
 import { ProductInfo } from "@/types/product";

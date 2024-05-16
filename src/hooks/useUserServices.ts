@@ -1,5 +1,5 @@
 import { auth, db } from "@/firebase";
-import { SignUpForm, LoginForm } from "@/types/user";
+import { SignUpFormTypes, LoginFormTypes } from "@/types/user";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -13,7 +13,7 @@ import { useEffect } from "react";
 export const useSignUp = () => {
   const { moveLogin } = useNavigate();
 
-  const signUp = async (userData: SignUpForm) => {
+  const signUp = async (userData: SignUpFormTypes) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -47,7 +47,7 @@ export const useSignUp = () => {
 export const useLogin = () => {
   const { moveHome } = useNavigate();
 
-  const login = async (userData: LoginForm) => {
+  const login = async (userData: LoginFormTypes) => {
     try {
       const loginInfo = await signInWithEmailAndPassword(
         auth,

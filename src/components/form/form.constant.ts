@@ -1,9 +1,9 @@
-import { ProductForm } from "@/types/product";
-import { SignUpForm } from "@/types/user";
+import { ProductFormTypes } from "@/types/product";
+import { SignUpFormTypes } from "@/types/user";
 import { z } from "zod";
 
 export interface SignUpInputProps {
-  id: keyof SignUpForm;
+  id: keyof SignUpFormTypes;
   type: string;
   placeholder: string;
 }
@@ -64,7 +64,7 @@ export const SignFormSchema = z
 
 ////// product //////
 export interface productFormInputProps {
-  id: keyof ProductForm;
+  id: keyof ProductFormTypes;
   label: string;
   type: string;
   placeholder?: string;

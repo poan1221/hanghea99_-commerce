@@ -14,7 +14,7 @@ export interface ProductInfo {
   createdAt: number;
 }
 
-export interface ProductForm {
+export interface ProductFormTypes {
   sellerId?: string;
   uid?: string;
   name: string;

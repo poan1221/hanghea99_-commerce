@@ -21,7 +21,7 @@ import { db, storage } from "@/firebase";
 import {
   CATEGORIES,
   Category,
-  ProductForm,
+  ProductFormTypes,
   ProductInfo,
   ProductsResponse,
   Series,
@@ -30,7 +30,7 @@ import {
 } from "@/types/product";
 
 export const UseAddProduct = () => {
-  const addProduct = async (userData: ProductForm) => {
+  const addProduct = async (userData: ProductFormTypes) => {
     // firestore에 product 추가
     const productId = doc(collection(db, "products")).id;
 
@@ -65,7 +65,7 @@ export const UseAddProduct = () => {
 };
 
 export const UseEditProduct = () => {
-  const editProduct = async (data: ProductForm) => {
+  const editProduct = async (data: ProductFormTypes) => {
     const productId = doc(collection(db, "products")).id;
 
     // Thumbnail이 파일인지 확인

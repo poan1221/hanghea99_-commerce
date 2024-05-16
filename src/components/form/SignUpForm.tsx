@@ -11,15 +11,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { SignUpForm } from "@/types/user";
+import { SignUpFormTypes } from "@/types/user";
 import { signUpInputs, SignFormSchema } from "./form.constant";
 
 interface SignUPFormProps {
-  signUp: (data: SignUpForm) => Promise<void>;
+  signUp: (data: SignUpFormTypes) => Promise<void>;
 }
 
 export const SignUpForm = ({ signUp }: SignUPFormProps) => {
-  const form = useForm<SignUpForm>({
+  const form = useForm<SignUpFormTypes>({
     resolver: zodResolver(SignFormSchema),
     mode: "onChange",
     defaultValues: {

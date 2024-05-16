@@ -1,9 +1,9 @@
-export interface LoginForm {
+export interface LoginFormTypes {
   email: string;
   password: string;
 }
 
-export interface SignUpForm {
+export interface SignUpFormTypes {
   userType: "customer" | "seller";
   email: string;
   nickname: string;
