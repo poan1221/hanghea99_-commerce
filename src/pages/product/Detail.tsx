@@ -1,5 +1,5 @@
-import { CartButton } from "@/components/Product/CartButton";
-import { QuantityButton } from "@/components/Product/QuantityButton";
+import { CartButton } from "@/components/pages/product/CartButton";
+import { QuantityButton } from "@/components/pages/product/QuantityButton";
 import { IconButton } from "@/components/common/IconButton";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "@/hooks/useNavigate";

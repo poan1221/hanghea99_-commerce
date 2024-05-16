@@ -1,10 +1,5 @@
 import { useForm } from "react-hook-form";
-import {
-  IProductForm,
-  CATEGORIES,
-  SERIES,
-  IProductInfo,
-} from "@/types/product";
+import { ProductForm, CATEGORIES, SERIES, ProductInfo } from "@/types/product";
 import { productFormInputs, productFormSchema } from "./form.constant";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -35,8 +30,8 @@ import ImageInput from "./inputs/ImageInput";
 import { useNavigate } from "@/hooks/useNavigate";
 
 interface ProductFormProps {
-  productFormHandle: (data: IProductForm) => Promise<any>;
-  initialData?: IProductInfo | null;
+  productFormHandle: (data: ProductForm) => Promise<any>;
+  initialData?: ProductInfo | null;
 }
 
 export const ProductForm = ({
@@ -49,7 +44,7 @@ export const ProductForm = ({
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  const form = useForm<IProductForm>({
+  const form = useForm<ProductForm>({
     resolver: zodResolver(productFormSchema),
     mode: "onChange",
     defaultValues: {
@@ -84,7 +79,7 @@ export const ProductForm = ({
   };
 
   const productMutation = useMutation({
-    mutationFn: (newEventData: IProductForm) => productFormHandle(newEventData),
+    mutationFn: (newEventData: ProductForm) => productFormHandle(newEventData),
     onSuccess: (result) => {
       if (result.success) {
         queryClient.invalidateQueries({ queryKey: ["products", user?.uid] });
@@ -98,8 +93,8 @@ export const ProductForm = ({
     },
   });
 
-  const onSubmit = form.handleSubmit((data: IProductForm) => {
-    const baseData: IProductForm = {
+  const onSubmit = form.handleSubmit((data: ProductForm) => {
+    const baseData: ProductForm = {
       ...data,
       sellerId: user?.uid as string,
     };

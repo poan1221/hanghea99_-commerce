@@ -1,7 +1,7 @@
 import { Routes } from "./router.type";
 import { Detail, ProductSelectedList, WishList } from "@/pages/product";
 import { Main, NotFound, Login, SignUp, Cart } from "@/pages";
-import { MyList, AddProduct, EditProduct } from "@/pages/admin";
+import { MyProductList, AddProduct, EditProduct } from "@/pages/admin";
 
 export const ROUTES: Routes = {
   HOME: {
@@ -40,9 +40,9 @@ export const ROUTES: Routes = {
   },
 
   MYLIST: {
-    PATH: "/myList",
+    PATH: "/myProductList",
     isAuth: true,
-    COMPONENT: MyList,
+    COMPONENT: MyProductList,
   },
 
   ADDPRODUCT: {

@@ -1,8 +1,8 @@
 import { useGetAllProducts } from "@/hooks/useGetProduct";
 import ErrorBox from "@/components/common/ErrorBox";
-import { PromotionBanner } from "./PromotionBanner";
+import { PromotionBanner } from "../components/pages/main/PromotionBanner";
 import { PageTitle } from "@/components/common/PageTItle";
-import { ProductList } from "./ProductList";
+import { ProductList } from "../components/pages/main/ProductList";
 
 export const Main = () => {
   const { isError } = useGetAllProducts();

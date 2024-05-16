@@ -1,6 +1,8 @@
 import { useGetAllProducts } from "@/hooks/useGetProduct";
-import { ProductCard } from "@/components/Product/card/ProductCard";
-import { ProductCardSkelton } from "@/components/Product/card/ProductCardSkelecton";
+import {
+  ProductCard,
+  ProductCardSkelton,
+} from "@/components/pages/product/card";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 

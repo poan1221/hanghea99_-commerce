@@ -1,10 +1,10 @@
-import { IProductInfo } from "@/types/product";
+import { ProductInfo } from "@/types/product";
 import { IconButton } from "@/components/common/IconButton";
 
 interface ProductListItemProps {
-  data: IProductInfo;
-  onEdit: (data: IProductInfo) => void;
-  onDelete: (data: IProductInfo) => void;
+  data: ProductInfo;
+  onEdit: (data: ProductInfo) => void;
+  onDelete: (data: ProductInfo) => void;
 }
 
 export const ProductListItem = (props: ProductListItemProps) => {

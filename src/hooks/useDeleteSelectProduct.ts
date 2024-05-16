@@ -1,11 +1,11 @@
 import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
 
-interface IUseDeleteSelectProduct {
+interface UseDeleteSelectProductProps {
   mutationFn: (productUid: string) => Promise<void>;
   queryKey: QueryKey;
 }
 
-export const useDeleteSelectProduct = (props: IUseDeleteSelectProduct) => {
+export const useDeleteSelectProduct = (props: UseDeleteSelectProductProps) => {
   const { mutationFn, queryKey } = props;
   const queryClient = useQueryClient();
 

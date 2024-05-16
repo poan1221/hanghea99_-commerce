@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useUserStore } from "@/store/useUserStore";
 import { PageTitle } from "@/components/common/PageTItle";
-import { ProductTableSkelton } from "@/components/Product/table";
-import { ProductWishList } from "@/components/Product/wish/ProductWishList";
+import { ProductTableSkelton } from "@/components/pages/product/table";
+import { ProductWishList } from "@/components/pages/wish/ProductWishList";
 
 export const WishList = () => {
   const user = useUserStore((state) => state.user);

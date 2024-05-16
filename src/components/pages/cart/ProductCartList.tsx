@@ -1,8 +1,8 @@
-import { ProductTableRow } from "@/components/Product/table/ProductTableRow";
 import { Button } from "@/components/ui/button";
 import { useUserCartProduct } from "@/hooks/useGetProduct";
 import { TotalPrice } from "./TotalPrice";
 import { useCartListProduct } from "@/hooks/useCartListProduct";
+import { ProductTableRow } from "@/components/pages/product/table";
 
 export const ProductCartList = () => {
   const { products } = useUserCartProduct();

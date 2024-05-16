@@ -8,7 +8,7 @@ import { deleteCartProduct } from "@/hooks/useOrderServies";
 import { Badge } from "@/components/ui/badge";
 import { addSpaceSeriesTitle } from "@/utils/addSpaceSeriesTitle";
 import { useCartQuantity } from "@/hooks/useQuantity";
-import { QuantityButton } from "../QuantityButton";
+import { QuantityButton } from "@/components/pages/product/QuantityButton";
 import { useDeleteSelectProduct } from "@/hooks/useDeleteSelectProduct";
 
 interface ProductTableRowProps {

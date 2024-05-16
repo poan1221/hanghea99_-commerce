@@ -9,14 +9,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { IProductForm } from "@/types/product";
+import { ProductForm } from "@/types/product";
 import transformImage from "@/utils/transformImage";
 import { Icon } from "@/components/common/randerIcon";
 
 interface ImageInputProps {
   imagePreview: string | null;
   setImagePreview: Dispatch<SetStateAction<string | null>>;
-  form: UseFormReturn<IProductForm>;
+  form: UseFormReturn<ProductForm>;
 }
 
 function ImageInput({ imagePreview, setImagePreview, form }: ImageInputProps) {

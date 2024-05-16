@@ -1,8 +1,8 @@
-import { ProductCard } from "@/components/Product/card/ProductCard";
-import { IProductInfo } from "@/types/product";
+import { ProductCard } from "@/components/pages/product/card/ProductCard";
+import { ProductInfo } from "@/types/product";
 
 interface ProductListProps {
-  products: IProductInfo[];
+  products: ProductInfo[];
 }
 
 export const ProductList = ({ products }: ProductListProps) => {

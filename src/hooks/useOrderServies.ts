@@ -1,17 +1,13 @@
 import { db } from "@/firebase";
 import { UserActionProduct } from "@/types/product";
 import {
-  DocumentData,
-  QueryDocumentSnapshot,
   collection,
   doc,
   getDoc,
   getDocs,
-  limit,
   orderBy,
   query,
   runTransaction,
-  startAfter,
   where,
 } from "firebase/firestore";
 

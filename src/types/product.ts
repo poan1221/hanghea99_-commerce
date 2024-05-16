@@ -1,6 +1,6 @@
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
-export interface IProductInfo {
+export interface ProductInfo {
   sellerId?: string;
   uid: string;
   id: string;
@@ -14,7 +14,7 @@ export interface IProductInfo {
   createdAt: number;
 }
 
-export interface IProductForm {
+export interface ProductForm {
   sellerId?: string;
   uid?: string;
   name: string;
@@ -51,7 +51,7 @@ export const SERIES: OptionMap = {
 export type Series = keyof typeof SERIES;
 
 export interface ProductsResponse {
-  products: IProductInfo[];
+  products: ProductInfo[];
   nextPage: QueryDocumentSnapshot<DocumentData> | null;
 }
 
@@ -62,7 +62,7 @@ export interface WishProduct {
   wishedAt: number;
 }
 
-export interface UserActionProduct extends IProductInfo {
+export interface UserActionProduct extends ProductInfo {
   productQuantity?: number;
   isChecked?: boolean;
 }

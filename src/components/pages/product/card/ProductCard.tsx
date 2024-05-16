@@ -1,9 +1,9 @@
-import { IProductInfo } from "@/types/product";
-import { WishedButton } from "../WishedButton";
+import { ProductInfo } from "@/types/product";
+import { WishedButton } from "@/components/pages/product/WishedButton";
 import { useNavigate } from "@/hooks/useNavigate";
 
 interface ProductCardProps {
-  data: IProductInfo;
+  data: ProductInfo;
 }
 
 export const ProductCard = (props: ProductCardProps) => {

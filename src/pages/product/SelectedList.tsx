@@ -1,6 +1,9 @@
 import { useGetSelectedProducts } from "@/hooks/useGetProduct";
 import ErrorBox from "@/components/common/ErrorBox";
-import { ProductCardSkelton, ProductList } from "@/components/Product/card";
+import {
+  ProductCardSkelton,
+  ProductList,
+} from "@/components/pages/product/card";
 import { PageTitle } from "@/components/common/PageTItle";
 import { addSpaceSeriesTitle } from "@/utils/addSpaceSeriesTitle";
 import { useEffect } from "react";

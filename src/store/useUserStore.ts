@@ -1,21 +1,21 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { IUserInfo } from "@/types/user";
+import { UserInfo } from "@/types/user";
 
 type State = {
-  user: IUserInfo | null;
+  user: UserInfo | null;
 };
 
 interface Action {
-  setUser: (user: IUserInfo | null) => void;
+  setUser: (user: UserInfo | null) => void;
 }
 
 export const useUserStore = create<State & Action>()(
   persist(
     (set) => ({
       user: null,
-      setUser: (user: IUserInfo | null) => set(() => ({ user })),
+      setUser: (user: UserInfo | null) => set(() => ({ user })),
     }),
     {
       name: "user-store",

@@ -1,10 +1,10 @@
-import { ProductTableRow } from "@/components/Product/table/ProductTableRow";
+import { ProductTableRow } from "@/components/pages/product/table/ProductTableRow";
 import { Button } from "@/components/ui/button";
-import { IProductInfo } from "@/types/product";
+import { ProductInfo } from "@/types/product";
 import { useWishListProduct } from "@/hooks/useWishListProduct";
 
 interface ProductWishListProps {
-  products: IProductInfo[];
+  products: ProductInfo[];
 }
 export const ProductWishList = ({ products }: ProductWishListProps) => {
   // const { checkedProducts, handleCheckbox, handleAllClick } =

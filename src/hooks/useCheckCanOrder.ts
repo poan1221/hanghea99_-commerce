@@ -1,8 +1,8 @@
 import { useNavigate } from "@/hooks/useNavigate";
-import { IUserInfo } from "@/types/user";
+import { UserInfo } from "@/types/user";
 
 interface CheckProps {
-  user: IUserInfo | null;
+  user: UserInfo | null;
   productQuantity: number;
 }
 

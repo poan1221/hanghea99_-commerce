@@ -1,10 +1,10 @@
 import { useLocation, useNavigate as useReactNavigate } from "react-router-dom";
 import { ROUTES } from "@/router/router.constant";
-import { IProductInfo } from "@/types/product";
+import { ProductInfo } from "@/types/product";
 
 interface NavigateProps {
   state?: {
-    product: IProductInfo;
+    product: ProductInfo;
   };
 }
 

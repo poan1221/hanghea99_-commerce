@@ -1,8 +1,8 @@
 import ErrorBox from "@/components/common/ErrorBox";
 import { PageTitle } from "@/components/common/PageTItle";
-import { ProductTableSkelton } from "@/components/Product/table";
+import { ProductTableSkelton } from "@/components/pages/product/table";
 import { useUserCartProduct } from "@/hooks/useGetProduct";
-import { ProductCartList } from "@/components/Product/cart/ProductCartList";
+import { ProductCartList } from "@/components/pages/cart/ProductCartList";
 
 export const Cart = () => {
   const { products, isLoading, isError } = useUserCartProduct();

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { ILoginForm } from "@/types/user";
+import { LoginForm } from "@/types/user";
 
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -7,11 +7,11 @@ import { Button } from "@/components/ui/button";
 import { UserCredential } from "@firebase/auth";
 
 interface LoginFormProps {
-  login: (data: ILoginForm) => Promise<{ data: UserCredential } | undefined>;
+  login: (data: LoginForm) => Promise<{ data: UserCredential } | undefined>;
 }
 
 export const LoginForm = ({ login }: LoginFormProps) => {
-  const form = useForm<ILoginForm>({
+  const form = useForm<LoginForm>({
     defaultValues: {
       email: "",
       password: "",

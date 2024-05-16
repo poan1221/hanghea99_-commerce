@@ -1,4 +1,3 @@
-import { FirebaseError } from "firebase/app";
 import {
   collection,
   deleteDoc,
@@ -22,8 +21,8 @@ import { db, storage } from "@/firebase";
 import {
   CATEGORIES,
   Category,
-  IProductForm,
-  IProductInfo,
+  ProductForm,
+  ProductInfo,
   ProductsResponse,
   Series,
   WishProduct,
@@ -31,7 +30,7 @@ import {
 } from "@/types/product";
 
 export const UseAddProduct = () => {
-  const addProduct = async (userData: IProductForm) => {
+  const addProduct = async (userData: ProductForm) => {
     // firestore에 product 추가
     const productId = doc(collection(db, "products")).id;
 
@@ -66,7 +65,7 @@ export const UseAddProduct = () => {
 };
 
 export const UseEditProduct = () => {
-  const editProduct = async (data: IProductForm) => {
+  const editProduct = async (data: ProductForm) => {
     const productId = doc(collection(db, "products")).id;
 
     // Thumbnail이 파일인지 확인
@@ -113,20 +112,8 @@ export const deleteProduct = async (productId: string) => {
     const productRef = doc(db, "products", productId);
     await deleteDoc(productRef);
     alert("상품이 삭제 되었습니다.");
-    return { success: true };
   } catch (error) {
     console.error("Error deleting event: ", error);
-    if (error instanceof FirebaseError) {
-      return {
-        success: false,
-        error: error.message,
-      };
-    } else {
-      return {
-        success: false,
-        error: error,
-      };
-    }
   }
 };
 
@@ -163,7 +150,7 @@ export const getProducts = async (
   const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
   const products = querySnapshot.docs.map((doc) => ({
     id: doc.id,
-    ...(doc.data() as IProductInfo),
+    ...(doc.data() as ProductInfo),
   }));
 
   return { products, nextPage: lastVisible };
