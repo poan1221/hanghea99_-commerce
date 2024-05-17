@@ -12,7 +12,7 @@ export const MyProductList = () => {
   }
 
   return (
-    <section className="container max-w-6xl mt-11 mb-11 mx-auto">
+    <section className="container max-w-6xl mt-11 mb-11 md:mt-20 mx-auto">
       <PageTitle title="My Products List" alignLeft />
       <AddProductButton />
       <ProductAdminList />

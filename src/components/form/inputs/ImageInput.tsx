@@ -19,7 +19,11 @@ interface ImageInputProps {
   form: UseFormReturn<ProductFormTypes>;
 }
 
-function ImageInput({ imagePreview, setImagePreview, form }: ImageInputProps) {
+export const ImageInput = ({
+  imagePreview,
+  setImagePreview,
+  form,
+}: ImageInputProps) => {
   const handleimageChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
 
@@ -81,6 +85,4 @@ function ImageInput({ imagePreview, setImagePreview, form }: ImageInputProps) {
       />
     </div>
   );
-}
-
-export default ImageInput;
+};
