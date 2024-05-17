@@ -85,8 +85,9 @@ export const ROUTES: Routes = {
   //     COMPONENT: OrderDetail,
   //   },
 
-  // NOT_FOUND: {
-  //   PATH: "*",
-  //   COMPONENT: NotFound,
-  // },
+  NOT_FOUND: {
+    PATH: "*",
+    isAuth: false,
+    COMPONENT: NotFound,
+  },
 } as const;
