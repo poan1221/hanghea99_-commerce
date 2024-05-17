@@ -1,5 +1,5 @@
 import { auth, db } from "@/firebase";
-import { ISignUpForm, ILoginForm } from "@/types/user";
+import { SignUpFormTypes, LoginFormTypes } from "@/types/user";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -7,13 +7,13 @@ import {
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from "./useNavigate";
 import { useUserStore } from "@/store/useUserStore";
-import { IUserInfo } from "@/types/user";
+import { UserInfo } from "@/types/user";
 import { useEffect } from "react";
 
 export const useSignUp = () => {
   const { moveLogin } = useNavigate();
 
-  const signUp = async (userData: ISignUpForm) => {
+  const signUp = async (userData: SignUpFormTypes) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -47,7 +47,7 @@ export const useSignUp = () => {
 export const useLogin = () => {
   const { moveHome } = useNavigate();
 
-  const login = async (userData: ILoginForm) => {
+  const login = async (userData: LoginFormTypes) => {
     try {
       const loginInfo = await signInWithEmailAndPassword(
         auth,
@@ -78,7 +78,7 @@ export const AuthStateObserver = () => {
             const docRef = doc(db, "user", user.uid);
             const docSnap = await getDoc(docRef);
 
-            setUser(docSnap.data() as IUserInfo);
+            setUser(docSnap.data() as UserInfo);
           })
           .catch((error) => {
             console.error("Token renewal error:", error);

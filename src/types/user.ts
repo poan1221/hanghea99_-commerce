@@ -1,9 +1,9 @@
-export interface ILoginForm {
+export interface LoginFormTypes {
   email: string;
   password: string;
 }
 
-export interface ISignUpForm {
+export interface SignUpFormTypes {
   userType: "customer" | "seller";
   email: string;
   nickname: string;
@@ -12,7 +12,7 @@ export interface ISignUpForm {
   employeeCode?: string;
 }
 
-export interface IUserInfo {
+export interface UserInfo {
   email: string;
   nickname: string;
   userType: "customer" | "seller";

@@ -1,10 +1,10 @@
 import { useLocation, useNavigate as useReactNavigate } from "react-router-dom";
 import { ROUTES } from "@/router/router.constant";
-import { IProductInfo } from "@/types/product";
+import { ProductInfo } from "@/types/product";
 
 interface NavigateProps {
   state?: {
-    product: IProductInfo;
+    product: ProductInfo;
   };
 }
 
@@ -46,6 +46,10 @@ export const useNavigate = () => {
     return navigate(ROUTES.CART.PATH, { state });
   };
 
+  const moveWish = ({ state }: NavigateProps = {}) => {
+    return navigate(ROUTES.WISHLIST.PATH, { state });
+  };
+
   const moveMyList = ({ state }: NavigateProps = {}) => {
     return navigate(ROUTES.MYLIST.PATH, { state });
   };
@@ -59,6 +63,16 @@ export const useNavigate = () => {
       state,
     });
   };
+  const moveCategoryList = (id: string, { state }: NavigateProps = {}) => {
+    return navigate(Parser.dynamicRoute(ROUTES.CATEGORYLIST.PATH, id), {
+      state,
+    });
+  };
+  const moveSeriesList = (id: string, { state }: NavigateProps = {}) => {
+    return navigate(Parser.dynamicRoute(ROUTES.SERIESLIST.PATH, id), {
+      state,
+    });
+  };
 
   return {
     moveBack,
@@ -68,9 +82,12 @@ export const useNavigate = () => {
     moveList,
     moveDetail,
     moveCart,
+    moveWish,
     moveMyList,
     moveAddProduct,
     moveEditProduct,
+    moveCategoryList,
+    moveSeriesList,
     locationState,
   };
 };

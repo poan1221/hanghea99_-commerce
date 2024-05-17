@@ -1,6 +1,6 @@
 import { PageTitle } from "@/components/common/PageTItle";
-import { ProductForm } from "@/components/form/ProductForm";
-import { UseAddProduct } from "@/hook/useProductServies";
+import { ProductFormTypes } from "@/components/form/ProductForm";
+import { UseAddProduct } from "@/hooks/useProductServies";
 
 export function AddProduct() {
   const addProduct = UseAddProduct();

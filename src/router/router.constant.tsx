@@ -1,7 +1,7 @@
 import { Routes } from "./router.type";
-import { ProductList, Detail } from "../pages/product";
-import { Main, Cart, NotFound, Login, SignUp } from "../pages";
-import { MyList, AddProduct, EditProduct } from "../pages/admin";
+import { Detail, ProductSelectedList, WishList } from "@/pages/product";
+import { Main, NotFound, Login, SignUp, Cart } from "@/pages";
+import { MyProductList, AddProduct, EditProduct } from "@/pages/admin";
 
 export const ROUTES: Routes = {
   HOME: {
@@ -11,21 +11,15 @@ export const ROUTES: Routes = {
   },
 
   LOGIN: {
-    PATH: "/Login",
+    PATH: "/login",
     isAuth: false,
     COMPONENT: Login,
   },
 
   SIGNUP: {
-    PATH: "/SignUp",
+    PATH: "/signUp",
     isAuth: false,
     COMPONENT: SignUp,
-  },
-
-  LIST: {
-    PATH: "/list",
-    isAuth: false,
-    COMPONENT: ProductList,
   },
 
   DETAIL: {
@@ -39,11 +33,16 @@ export const ROUTES: Routes = {
     isAuth: true,
     COMPONENT: Cart,
   },
+  WISHLIST: {
+    PATH: "/wishList",
+    isAuth: true,
+    COMPONENT: WishList,
+  },
 
   MYLIST: {
-    PATH: "/mylist",
+    PATH: "/myProductList",
     isAuth: true,
-    COMPONENT: MyList,
+    COMPONENT: MyProductList,
   },
 
   ADDPRODUCT: {
@@ -58,6 +57,17 @@ export const ROUTES: Routes = {
     COMPONENT: EditProduct,
   },
 
+  CATEGORYLIST: {
+    PATH: "/category/:id",
+    isAuth: false,
+    COMPONENT: ProductSelectedList,
+  },
+
+  SERIESLIST: {
+    PATH: "/series/:id",
+    isAuth: false,
+    COMPONENT: ProductSelectedList,
+  },
   // 추가...
 
   //   ORDER: {

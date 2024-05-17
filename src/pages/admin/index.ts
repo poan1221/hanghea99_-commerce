@@ -1,3 +1,3 @@
 export * from "./AddProduct";
-export * from "./MyList";
+export * from "./MyProductList";
 export * from "./EditProduct";

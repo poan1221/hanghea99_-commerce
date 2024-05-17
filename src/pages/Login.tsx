@@ -1,6 +1,6 @@
-import { useNavigate } from "../hook/useNavigate";
-import { LoginForm } from "../components/form/LoginForm";
-import { useLogin } from "../hook/useUserServices";
+import { useNavigate } from "../hooks/useNavigate";
+import { LoginFormTypes } from "../components/form/LoginForm";
+import { useLogin } from "../hooks/useUserServices";
 import { PageTitle } from "@/components/common/PageTItle";
 
 export const Login = () => {

@@ -1,6 +1,6 @@
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
-export interface IProductInfo {
+export interface ProductInfo {
   sellerId?: string;
   uid: string;
   id: string;
@@ -14,7 +14,7 @@ export interface IProductInfo {
   createdAt: number;
 }
 
-export interface IProductForm {
+export interface ProductFormTypes {
   sellerId?: string;
   uid?: string;
   name: string;
@@ -31,7 +31,7 @@ type OptionMap = { [key: string]: string };
 export const CATEGORIES: OptionMap = {
   Clothes: "의류",
   Accessories: "악세사리",
-  OfficeSupplies: "문구",
+  OfficeItems: "문구",
   PhotoCard: "포토카드",
   Ect: "기타",
 } as const;
@@ -51,6 +51,18 @@ export const SERIES: OptionMap = {
 export type Series = keyof typeof SERIES;
 
 export interface ProductsResponse {
-  products: IProductInfo[];
+  products: ProductInfo[];
   nextPage: QueryDocumentSnapshot<DocumentData> | null;
+}
+
+export interface WishProduct {
+  id: string;
+  productId: string;
+  userId: string;
+  wishedAt: number;
+}
+
+export interface UserActionProduct extends ProductInfo {
+  productQuantity?: number;
+  isChecked?: boolean;
 }

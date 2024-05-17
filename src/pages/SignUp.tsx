@@ -1,6 +1,6 @@
 import { PageTitle } from "@/components/common/PageTItle";
-import { SignUpForm } from "@/components/form/SignUpForm";
-import { useSignUp } from "@/hook/useUserServices";
+import { SignUpFormTypes } from "@/components/form/SignUpForm";
+import { useSignUp } from "@/hooks/useUserServices";
 
 export const SignUp = () => {
   const submitSignUp = useSignUp();
