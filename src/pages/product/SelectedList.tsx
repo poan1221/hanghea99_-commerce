@@ -36,7 +36,7 @@ export const ProductSelectedList = () => {
   const products = data?.pages.flatMap((page) => page.products) || [];
 
   return (
-    <section className="container productsWrap max-w-4xl mt-11 mx-auto">
+    <section className="container productsWrap max-w-6xl mt-11 mx-auto">
       <PageTitle
         title={addSpaceSeriesTitle(selectedType as string)}
         alignLeft

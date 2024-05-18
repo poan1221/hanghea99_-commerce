@@ -14,7 +14,7 @@ export const TextareaForm = ({ input, form }: FormInputProps) => {
       control={form.control}
       name={input.id}
       key={input.id}
-      render={({ field }) => (
+      render={({ field }: any) => (
         <FormItem>
           <FormLabel className="font-bold text-base">{input.label}</FormLabel>
           <FormControl>

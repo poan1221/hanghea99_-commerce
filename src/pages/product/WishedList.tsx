@@ -31,7 +31,7 @@ export const WishList = () => {
   if (isError) return <ErrorBox />;
 
   return (
-    <section className="container productsWrap max-w-4xl mt-11 mx-auto">
+    <section className="container productsWrap max-w-6xl mt-11 mx-auto">
       <PageTitle title="My Wish List" alignLeft />
       {isLoading ? (
         <ProductTableSkelton productsPerRow={4} />
