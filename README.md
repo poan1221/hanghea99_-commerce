@@ -1,30 +1,25 @@
-# React + TypeScript + Vite
+# 프로젝트 소개
+**PLAVE shop** 은 버추얼 아이돌 그룹 플레이브의 MD 상품을 판매/구매 할 수 있는 가상의 쇼핑몰 입니다.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 기술 스택 및 사용 라이브러리
+- 프론트 언어/프레임워크 : Typescript, React
+- 백엔드 서버 : Firebase / Firebase Cloud Storage
+- 스타일, UI 컴포넌트 라이브러리 : Tailwind CSS, shadcn/ui
+- 서버 상태 관리 : @tanstack react-Query
 
-Currently, two official plugins are available:
+## 주요 기능
+- Firebase 를 이용한 로그인, 회원가입 구현
+- 시리즈/카테고리 별 상품 페이지 구현
+- `판매자`용 상품 CRUD 구현
+- `구매자`용 위시리스트/장바구니 CRUD 구현
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+### 테스트 계정
 ```
+* 판매자 계정
+gawawe8457@idsho.com
+1234qwer!
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+* 구매자 계정
+wowim80580@rartg.com
+1234qwer!
+```

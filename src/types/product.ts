@@ -1,4 +1,6 @@
+import { productFormInputProps } from "@/components/form/form.constant";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+import { UseFormReturn } from "react-hook-form";
 
 export interface ProductInfo {
   sellerId?: string;
@@ -26,7 +28,7 @@ export interface ProductFormTypes {
   description: string;
 }
 
-type OptionMap = { [key: string]: string };
+export type OptionMap = { [key: string]: string };
 
 export const CATEGORIES: OptionMap = {
   Clothes: "의류",
@@ -65,4 +67,13 @@ export interface WishProduct {
 export interface UserActionProduct extends ProductInfo {
   productQuantity?: number;
   isChecked?: boolean;
+}
+
+export interface FormInputProps {
+  input: productFormInputProps;
+  form: UseFormReturn<ProductFormTypes>;
+}
+
+export interface SelectFormProps extends FormInputProps {
+  options: OptionMap;
 }

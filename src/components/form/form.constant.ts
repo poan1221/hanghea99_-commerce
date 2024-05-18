@@ -78,6 +78,16 @@ export const productFormInputs: productFormInputProps[] = [
     placeholder: "상품명을 기입해 주세요.",
   },
   {
+    id: "price",
+    label: "가격",
+    type: "number",
+  },
+  {
+    id: "quantity",
+    label: "수량",
+    type: "number",
+  },
+  {
     id: "category",
     label: "카테고리",
     type: "select",
@@ -88,16 +98,6 @@ export const productFormInputs: productFormInputProps[] = [
     label: "시리즈",
     type: "select",
     placeholder: "시리즈를 선택해 주세요.",
-  },
-  {
-    id: "price",
-    label: "가격",
-    type: "number",
-  },
-  {
-    id: "quantity",
-    label: "수량",
-    type: "number",
   },
   {
     id: "description",

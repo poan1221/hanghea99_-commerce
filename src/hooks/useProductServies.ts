@@ -149,7 +149,6 @@ export const getProducts = async (
 
   const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
   const products = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
     ...(doc.data() as ProductInfo),
   }));
 

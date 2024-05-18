@@ -4,6 +4,8 @@ import {
   CATEGORIES,
   SERIES,
   ProductInfo,
+  FormInputProps,
+  SelectFormProps,
 } from "@/types/product";
 import { productFormInputs, productFormSchema } from "./form.constant";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,27 +14,14 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useUserStore } from "@/store/useUserStore";
 import { transformdataToFormValues } from "@/utils/transformToFormValues";
 import { useEffect, useState } from "react";
-
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import ImageInput from "./inputs/ImageInput";
+import { ImageInput } from "./inputs/ImageInput";
 import { useNavigate } from "@/hooks/useNavigate";
+import { SelectForm } from "./inputs/SelectForm";
+import { TextareaForm } from "./inputs/TextareaForm";
+import { NumberInput } from "./inputs/NumberInput";
+import { TextInput } from "./inputs/TextInput";
 
 interface ProductFormProps {
   productFormHandle: (data: ProductFormTypes) => Promise<any>;
@@ -71,6 +60,13 @@ export const ProductForm = ({
       setImagePreview(initialData.image as string);
     }
   }, [initialData, form]);
+
+  const inputComponentMap: { [key: string]: React.ComponentType<any> } = {
+    number: NumberInput as React.ComponentType<FormInputProps>,
+    text: TextInput as React.ComponentType<FormInputProps>,
+    select: SelectForm as React.ComponentType<SelectFormProps>,
+    textarea: TextareaForm as React.ComponentType<FormInputProps>,
+  };
 
   const renderOption = (id: string) => {
     switch (id) {
@@ -121,86 +117,23 @@ export const ProductForm = ({
           setImagePreview={setImagePreview}
         />
 
-        {productFormInputs
-          .filter((input) => input.type === "number" || input.type === "text")
-          .map((input) => (
-            <FormField
-              key={input.id}
-              control={form.control}
-              name={input.id}
-              render={() => (
-                <FormItem>
-                  <FormLabel className="font-bold text-base">
-                    {input.label}
-                  </FormLabel>
-                  <FormControl>
-                    {input.type === "number" ? (
-                      <Input type={input.type} {...form.register(input.id)} />
-                    ) : (
-                      <Input
-                        type={input.type}
-                        placeholder={input.placeholder}
-                        {...form.register(input.id, {
-                          setValueAs: (value) => value.trim(),
-                        })}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
+        {productFormInputs.map((input) => {
+          const InputComponent = inputComponentMap[input.type];
+          if (!InputComponent) return null;
 
-        {productFormInputs
-          .filter(
-            (input) => input.type === "select" || input.type === "textarea"
-          )
-          .map((input) => (
-            <FormField
-              control={form.control}
-              name={input.id}
-              key={input.id}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-bold text-base">
-                    {input.label}
-                  </FormLabel>
-                  {input.type === "select" ? (
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value as string}
-                      value={field.value as string}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="필수 선택사항입니다." />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {Object.entries(renderOption(input.id)).map(
-                          ([key, label]) => (
-                            <SelectItem key={key} value={key}>
-                              {label}
-                            </SelectItem>
-                          )
-                        )}
-                      </SelectContent>
-                    </Select>
-                  ) : (
-                    <FormControl>
-                      <Textarea
-                        placeholder="상품의 상세 정보를 작성해주세요."
-                        className="resize-none"
-                        {...field}
-                      />
-                    </FormControl>
-                  )}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
+          if (input.type === "select") {
+            return (
+              <InputComponent
+                key={input.id}
+                input={input}
+                options={renderOption(input.id)}
+                form={form}
+              />
+            );
+          } else {
+            return <InputComponent key={input.id} input={input} form={form} />;
+          }
+        })}
 
         <div className="pt-6">
           <Button type="submit" className="w-full">
