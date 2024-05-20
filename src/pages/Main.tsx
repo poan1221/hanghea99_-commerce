@@ -14,7 +14,7 @@ export const Main = () => {
   return (
     <main>
       <PromotionBanner />
-      <section className="container productsWrap max-w-6xl mt-11 mx-auto">
+      <section className="container productsWrap max-w-6xl section-md-py mx-auto">
         <PageTitle title="New Arrival" />
         <ProductList />
       </section>

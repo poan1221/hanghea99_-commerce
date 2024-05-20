@@ -45,7 +45,7 @@ export const ProductAdminList = () => {
   }
 
   return (
-    <div className="productsWrap max-w-6xl mt-11 mx-auto">
+    <div className="productsWrap max-w-6xl section-md-py mx-auto">
       {products.map((product) => (
         <ProductListItem
           key={product.uid}

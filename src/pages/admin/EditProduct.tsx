@@ -13,7 +13,7 @@ export function EditProduct() {
 
   const editProduct = UseEditProduct();
   return (
-    <section className="container max-w-6xl mt-11 mb-11 md:mt-20 mx-auto ">
+    <section className="container max-w-6xl section-md-py mb-11 md:mt-20 mx-auto ">
       <PageTitle title="상품 수정하기" alignLeft />
       <ProductForm productFormHandle={editProduct} initialData={initialData} />
     </section>
