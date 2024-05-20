@@ -9,7 +9,7 @@
   <br/><br/>
 
 
-![sample_site_gif] (https://firebasestorage.googleapis.com/v0/b/hanghea99-commerce.appspot.com/o/images%2FplaveShop-sample.gif?alt=media&token=f4f00aba-009b-4306-b9df-e7a65a6b72d3)
+![sample_site_gif](https://firebasestorage.googleapis.com/v0/b/hanghea99-commerce.appspot.com/o/images%2FplaveShop-sample.gif?alt=media&token=f4f00aba-009b-4306-b9df-e7a65a6b72d3)
 
 ### 테스트 계정
 
