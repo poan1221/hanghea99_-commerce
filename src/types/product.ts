@@ -35,7 +35,7 @@ export const CATEGORIES: OptionMap = {
   Accessories: "악세사리",
   OfficeItems: "문구",
   PhotoCard: "포토카드",
-  Ect: "기타",
+  Etc: "기타",
 } as const;
 
 export type Category = keyof typeof CATEGORIES;
