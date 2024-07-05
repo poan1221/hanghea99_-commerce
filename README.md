@@ -40,6 +40,10 @@ PW: 1234qwer!
 ![Vite](https://img.shields.io/badge/vite-646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 ![Firebase](https://img.shields.io/badge/firebase-FFCA28.svg?style=for-the-badge&logo=firebase&logoColor=white)
 
+## 트러블 슈팅
+- [이벤트 전파(Event Propagation) 제어하기](https://velog.io/@poan1221/%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%A0%84%ED%8C%8CEvent-Propagation-%EC%A0%9C%EC%96%B4%ED%95%98%EA%B8%B0)
+- [파이어베이스 보안규칙 권한 설정하기](https://velog.io/@poan1221/firebase-Token-renewal-error-FirebaseError-Missing-or-insufficient-permissions)
+
 ## 아키텍쳐
 
 ![architecture](https://firebasestorage.googleapis.com/v0/b/hanghea99-commerce.appspot.com/o/images%2Farchitecture.png?alt=media&token=e6f6e1fa-481a-4d51-b3ad-6206844a5d26)
