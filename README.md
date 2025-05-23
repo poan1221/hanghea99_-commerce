@@ -5,7 +5,7 @@
 
 > 💻 배포 URL : https://plaveshop.vercel.app
 
-- 개발 기간 : 2024.04 ~ 진행중
+- 개발 기간 : 2024.04 ~ 2024.05 (1차 개발)
   <br/><br/>
 
 ![sample_site_gif](https://firebasestorage.googleapis.com/v0/b/hanghea99-commerce.appspot.com/o/images%2FplaveShop-sample.gif?alt=media&token=f4f00aba-009b-4306-b9df-e7a65a6b72d3)
